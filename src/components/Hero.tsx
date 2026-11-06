@@ -1,30 +1,127 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 
-export default function Hero() {
+interface HeroProps {
+  isSplashDone?: boolean;
+}
+
+export default function Hero({ isSplashDone = true }: HeroProps) {
+  const line1Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLSpanElement>(null);
   const pill1Ref = useRef<HTMLAnchorElement>(null);
   const pill2Ref = useRef<HTMLAnchorElement>(null);
   const pill3Ref = useRef<HTMLAnchorElement>(null);
+  const loopLeftRef = useRef<HTMLDivElement>(null);
+  const loopRightRef = useRef<HTMLDivElement>(null);
+  const bottomContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!isSplashDone) return;
+
+    const line1 = line1Ref.current;
+    const line2 = line2Ref.current;
+    const pill1 = pill1Ref.current;
+    const pill2 = pill2Ref.current;
+    const pill3 = pill3Ref.current;
+    const loopLeft = loopLeftRef.current;
+    const loopRight = loopRightRef.current;
+    const bottomContent = bottomContentRef.current;
+
     const pills = [
-      { ref: pill1Ref, baseRot: -3.5 },
-      { ref: pill2Ref, baseRot: 3 },
-      { ref: pill3Ref, baseRot: -2.5 },
+      { el: pill1, baseRot: -3.5 },
+      { el: pill2, baseRot: 3 },
+      { el: pill3, baseRot: -2.5 },
     ];
 
+    // Initial states before reveal
+    if (line1 && line2) {
+      gsap.set([line1, line2], { yPercent: 110, opacity: 0 });
+    }
+    pills.forEach(({ el, baseRot }) => {
+      if (el) {
+        gsap.set(el, {
+          scale: 0,
+          opacity: 0,
+          rotation: baseRot - 10,
+          transformOrigin: "center center",
+        });
+      }
+    });
+    if (loopLeft && loopRight) {
+      gsap.set([loopLeft, loopRight], { opacity: 0, scale: 0.9 });
+    }
+    if (bottomContent) {
+      gsap.set(bottomContent, { opacity: 0, y: 25 });
+    }
+
+    // Master Hero Entrance Timeline
+    const masterTl = gsap.timeline({
+      delay: 0.1,
+    });
+
+    // 1. Headline Lines slide up from mask
+    if (line1 && line2) {
+      masterTl.to([line1, line2], {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.85,
+        ease: "power3.out",
+        stagger: 0.16,
+      });
+    }
+
+    // 2. The 3 Service Sticker Pills pop in consecutively with spring bounce
+    const validPills = pills.map((p) => p.el).filter(Boolean);
+    if (validPills.length) {
+      masterTl.to(
+        validPills,
+        {
+          scale: 1,
+          opacity: 1,
+          rotation: (idx) => pills[idx].baseRot,
+          duration: 0.65,
+          ease: "back.out(2.4)",
+          stagger: 0.16,
+        },
+        "-=0.4"
+      );
+    }
+
+    // 3. Side loops & bottom copy reveal
+    if (loopLeft && loopRight) {
+      masterTl.to(
+        [loopLeft, loopRight],
+        {
+          opacity: 0.9,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.5"
+      );
+    }
+
+    if (bottomContent) {
+      masterTl.to(
+        bottomContent,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      );
+    }
+
+    // Setup interactive hover & idle float on the pills
     const cleanups: (() => void)[] = [];
 
-    pills.forEach(({ ref, baseRot }, index) => {
-      const el = ref.current;
+    pills.forEach(({ el, baseRot }, index) => {
       if (!el) return;
-
-      // Set initial rotation
-      gsap.set(el, { rotation: baseRot, transformOrigin: "center center" });
 
       // Subtle organic idle float
       const floatTween = gsap.to(el, {
@@ -34,7 +131,7 @@ export default function Hero() {
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        delay: index * 0.3,
+        delay: 1.2 + index * 0.25,
       });
 
       // Mouse enter pop (glassmorphic lift, no border)
@@ -97,8 +194,10 @@ export default function Hero() {
 
     return () => {
       cleanups.forEach((c) => c());
+      masterTl.kill();
     };
-  }, []);
+  }, [isSplashDone]);
+
   return (
     <section
       id="top"
@@ -108,7 +207,10 @@ export default function Hero() {
       {/* Two26-Style Giant Orange Looping Line Art Left & Right */}
       {/* ============================================================== */}
       {/* Left Orange Loop */}
-      <div className="absolute -left-12 sm:left-0 top-20 sm:top-28 w-44 sm:w-64 h-[450px] sm:h-[600px] pointer-events-none z-0 opacity-90">
+      <div
+        ref={loopLeftRef}
+        className="absolute -left-12 sm:left-0 top-20 sm:top-28 w-44 sm:w-64 h-[450px] sm:h-[600px] pointer-events-none z-0"
+      >
         <svg
           viewBox="0 0 229 599"
           fill="none"
@@ -125,7 +227,10 @@ export default function Hero() {
       </div>
 
       {/* Right Orange Loop */}
-      <div className="absolute -right-16 sm:right-0 top-16 sm:top-24 w-56 sm:w-80 h-[380px] sm:h-[500px] pointer-events-none z-0 opacity-90">
+      <div
+        ref={loopRightRef}
+        className="absolute -right-16 sm:right-0 top-16 sm:top-24 w-56 sm:w-80 h-[380px] sm:h-[500px] pointer-events-none z-0"
+      >
         <svg
           viewBox="0 0 354 487"
           fill="none"
@@ -147,10 +252,18 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10 my-auto text-center flex flex-col items-center">
         {/* Giant Two26-Style Display Typography */}
         <div className="relative inline-block w-full max-w-5xl my-4 sm:my-8">
-          {/* Main Giant Headline */}
+          {/* Main Giant Headline with overflow masks for slide-up reveal */}
           <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] xl:text-[10.5rem] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.88] drop-shadow-xs">
-            <span className="block">A HOOK FOR</span>
-            <span className="block mt-1 sm:mt-2">CURIOUS BRANDS</span>
+            <span className="block overflow-hidden pb-1">
+              <span ref={line1Ref} className="block will-change-transform">
+                A HOOK FOR
+              </span>
+            </span>
+            <span className="block overflow-hidden mt-1 sm:mt-2 pb-1">
+              <span ref={line2Ref} className="block will-change-transform">
+                CURIOUS BRANDS
+              </span>
+            </span>
           </h1>
 
           {/* ============================================================== */}
@@ -187,7 +300,10 @@ export default function Hero() {
         {/* ============================================================== */}
         {/* Subline & Action Buttons */}
         {/* ============================================================== */}
-        <div className="w-full max-w-2xl mt-12 sm:mt-16 mb-8 flex flex-col items-center">
+        <div
+          ref={bottomContentRef}
+          className="w-full max-w-2xl mt-8 sm:mt-12 mb-6 flex flex-col items-center"
+        >
           {/* Subline */}
           <p className="text-base sm:text-xl text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mb-8">
             We build brands people notice, ads that pay back, and customers who

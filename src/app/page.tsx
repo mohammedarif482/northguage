@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmoothScroll from "@/components/SmoothScroll";
+import SplashScreen from "@/components/SplashScreen";
 import Header from "@/components/Header";
 import ScrollHookMarker from "@/components/ScrollHookMarker";
 import Hero from "@/components/Hero";
@@ -21,19 +22,24 @@ import PrivacyModal from "@/components/PrivacyModal";
 
 export default function Home() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [isSplashDone, setIsSplashDone] = useState(false);
 
   return (
-    <SmoothScroll>
-      <div className="relative min-h-screen flex flex-col bg-[#FFFDF2] text-[#1F1F1F]">
-        {/* Floating Glass Pill Navigation */}
-        <Header />
+    <>
+      {/* Fullscreen Initial Opening Splash Screen */}
+      <SplashScreen onComplete={() => setIsSplashDone(true)} />
 
-        {/* Scroll Progress Indicator Track on the Right Edge */}
-        <ScrollHookMarker />
+      <SmoothScroll>
+        <div className="relative min-h-screen flex flex-col bg-[#FFFDF2] text-[#1F1F1F]">
+          {/* Floating Glass Pill Navigation */}
+          <Header />
 
-        <main className="grow">
-          {/* 1. Hero (#top) */}
-          <Hero />
+          {/* Scroll Progress Indicator Track on the Right Edge */}
+          <ScrollHookMarker />
+
+          <main className="grow">
+            {/* 1. Hero (#top) with opening animation synced to splash */}
+            <Hero isSplashDone={isSplashDone} />
 
           {/* 2. Client Logo Strip */}
           <LogoStrip />
@@ -79,5 +85,6 @@ export default function Home() {
         />
       </div>
     </SmoothScroll>
+    </>
   );
 }
