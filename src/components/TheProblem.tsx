@@ -126,10 +126,10 @@ export default function TheProblem() {
 
         {/* Main Kinetic Typography Box - Pure, No Pills */}
         <div className="relative space-y-8">
-          {/* Main Manifesto Copy */}
+          {/* Main Manifesto Copy - Light, Refined Weight */}
           <p
             ref={textRef}
-            className="text-2xl sm:text-4xl md:text-[2.75rem] font-extrabold text-[#1F1F1F] tracking-tight leading-[1.22]"
+            className="text-2xl sm:text-3xl md:text-[2.4rem] font-medium text-[#1F1F1F] tracking-tight leading-[1.32]"
           >
             Most brands are split in three. A brand agency that makes things
             pretty. A performance agency that makes things cheap. A CRM
@@ -141,7 +141,7 @@ export default function TheProblem() {
           <div className="pt-2">
             <p
               ref={punchlineRef}
-              className="text-3xl sm:text-5xl md:text-[3.25rem] font-extrabold text-[#FF4B00] tracking-tight leading-tight"
+              className="text-2xl sm:text-4xl md:text-[2.85rem] font-bold text-[#FF4B00] tracking-tight leading-snug"
             >
               Northgauge puts all three on one line.
             </p>
