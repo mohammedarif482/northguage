@@ -7,98 +7,244 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[94vh] pt-36 pb-16 sm:pt-44 sm:pb-24 flex flex-col justify-between bg-[#FCF5CD] hairline-b overflow-hidden"
+      className="relative min-h-screen pt-32 sm:pt-36 pb-16 flex flex-col justify-between bg-[#FDF3EC] hairline-b overflow-hidden select-none"
     >
-      {/* Top Section Tag */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full mb-8 sm:mb-12">
-        <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/60 pb-3 hairline-b">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
-            <span>CREATIVE-LED GROWTH AGENCY</span>
-          </div>
-          <span className="font-serif italic text-sm text-[#FF4B00]">01 // HERO</span>
-        </div>
+      {/* ============================================================== */}
+      {/* Two26-Style Giant Orange Looping Line Art Left & Right */}
+      {/* ============================================================== */}
+      {/* Left Orange Loop */}
+      <div className="absolute -left-12 sm:left-0 top-20 sm:top-28 w-44 sm:w-64 h-[450px] sm:h-[600px] pointer-events-none z-0 opacity-90">
+        <svg
+          viewBox="0 0 229 599"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          <path
+            d="M33.502 584.112C104.502 557.112 147.911 474.964 143.002 393.612C139.502 335.612 106.002 281.612 59.0025 252.612C7.82072 221.032 -4.20053 385.572 52.5031 405.612C140.218 436.612 225.002 369.112 212.002 252.612C208.376 220.111 192.539 178.612 152.002 121.612C117.866 73.6124 42.0029 11.6124 42.0029 11.6124"
+            stroke="#FF4B00"
+            strokeWidth="24"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
 
-      {/* Hero Content */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Headlines & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start">
-            <div className="font-serif italic text-xl sm:text-2xl text-[#1F1F1F]/70 mb-3">
-              A hook for curious minds.
-            </div>
+      {/* Right Orange Loop */}
+      <div className="absolute -right-16 sm:right-0 top-16 sm:top-24 w-56 sm:w-80 h-[380px] sm:h-[500px] pointer-events-none z-0 opacity-90">
+        <svg
+          viewBox="0 0 354 487"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          <path
+            d="M250.687 12.2982C192.69 52.7982 114.69 199.814 245.687 315.798C376.684 431.783 364.19 140.889 235.187 83.2982C153.19 46.6926 54.8365 106.798 30.1893 172.298C-59.5565 410.798 277.687 471.798 277.687 471.798"
+            stroke="#FF4B00"
+            strokeWidth="24"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-[5.4rem] font-extrabold text-[#1F1F1F] tracking-tight leading-[0.96] mb-8">
-              A hook for <br />
-              <span className="text-[#FF4B00] relative inline-block">
-                curious
-              </span>{" "}
-              brands.
-            </h1>
+      {/* ============================================================== */}
+      {/* Main Hero Container */}
+      {/* ============================================================== */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10 my-auto text-center flex flex-col items-center">
+        {/* Giant Two26-Style Display Typography */}
+        <div className="relative inline-block w-full max-w-5xl my-4 sm:my-8">
+          {/* Main Giant Headline */}
+          <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] xl:text-[10.5rem] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.88] drop-shadow-xs">
+            <span className="block">A HOOK FOR</span>
+            <span className="block mt-1 sm:mt-2">CURIOUS BRANDS</span>
+          </h1>
 
-            <p className="text-xl sm:text-2xl text-[#1F1F1F]/80 font-normal leading-relaxed max-w-xl mb-10">
-              We build brands people notice, ads that pay back, and customers who
-              come back. One team, three moves:{" "}
-              <span className="font-extrabold text-[#1F1F1F]">
-                Hook. Reel. Keep.
-              </span>
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
-              <a
-                href="#audit"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#FF4B00] hover:bg-[#E04200] text-white font-bold text-xs uppercase tracking-[0.14em] transition-all duration-150 shadow-sm hover:shadow-lg"
-              >
-                <span>Get a free growth audit</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-transparent hover:bg-[#1F1F1F]/5 text-[#1F1F1F] font-bold text-xs uppercase tracking-[0.14em] border border-[#1F1F1F]/25 hover:border-[#1F1F1F] transition-all duration-150"
-              >
-                <span>See how it works</span>
-                <ArrowDown className="w-3.5 h-3.5 text-[#FF4B00]" />
-              </a>
-            </div>
+          {/* ============================================================== */}
+          {/* Two26-Style Floating Black Sticker Pills Placed Over Letters */}
+          {/* ============================================================== */}
+          {/* Sticker 1: over HOOK / FOR */}
+          <div
+            className="hero-sticker-pill -top-3 left-[15%] sm:left-[22%] -rotate-3"
+            style={{ transform: "rotate(-3.5deg)" }}
+          >
+            <span>Creative-led growth</span>
           </div>
 
-          {/* Right Column: Hero Visual - Elegant Hook dangling on hairline */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-sm sm:max-w-md h-[340px] sm:h-[420px] flex items-center justify-center">
-              {/* Hairline fishing line coming from top */}
-              <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1px] h-44 bg-[#1F1F1F]/25" />
+          {/* Sticker 2: between lines center */}
+          <div
+            className="hero-sticker-pill top-[36%] sm:top-[40%] right-[12%] sm:right-[20%] rotate-3"
+            style={{ transform: "rotate(3deg)" }}
+          >
+            <span>Hook. Reel. Keep.</span>
+          </div>
 
-              {/* Hook emblem swaying */}
-              <div className="relative w-44 sm:w-56 h-64 sm:h-80 animate-hook-sway">
-                <Image
-                  src="/northgauge-hook.svg"
-                  alt="Northgauge Hook"
-                  fill
-                  priority
-                  className="object-contain drop-shadow-sm"
+          {/* Sticker 3: over CURIOUS */}
+          <div
+            className="hero-sticker-pill top-[52%] sm:top-[56%] left-[4%] sm:left-[10%] -rotate-2"
+            style={{ transform: "rotate(-2.5deg)" }}
+          >
+            <span>Independent studio</span>
+          </div>
+
+          {/* Sticker 4: over BRANDS */}
+          <div
+            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%] rotate-3"
+            style={{ transform: "rotate(3.5deg)" }}
+          >
+            <span>No funny business</span>
+          </div>
+
+          {/* Sticker 5: top right subtle */}
+          <div
+            className="hidden md:inline-flex hero-sticker-pill top-2 right-[2%] -rotate-2"
+            style={{ transform: "rotate(-2deg)" }}
+          >
+            <span>Three fixes, no pitch deck</span>
+          </div>
+        </div>
+
+        {/* ============================================================== */}
+        {/* Walking Characters / Hook Art (Two26 Style Illustration) */}
+        {/* ============================================================== */}
+        <div className="w-full max-w-2xl mt-4 sm:mt-6 mb-8 flex flex-col items-center">
+          <div className="relative w-full h-44 sm:h-56 flex items-end justify-center">
+            {/* Illustrated Characters with Walking Signs HOOK & REEL & KEEP */}
+            <svg
+              viewBox="0 0 600 160"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full h-full max-w-xl"
+            >
+              {/* Ground hairline */}
+              <line x1="20" y1="150" x2="580" y2="150" stroke="#1F1F1F" strokeWidth="2" strokeDasharray="6 6" />
+
+              {/* Character 1 (Walking left-center with "HOOK" placard) */}
+              <g transform="translate(110, 10)">
+                {/* Legs */}
+                <path d="M 45 95 L 30 148 M 55 95 L 75 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Feet */}
+                <path d="M 22 148 L 34 148 M 68 148 L 84 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
+                {/* Orange Pants */}
+                <path d="M 40 92 L 25 142 L 35 142 L 48 100 L 62 142 L 72 142 L 60 92 Z" fill="#FF4B00" />
+                {/* Torso & Orange Jacket */}
+                <rect x="35" y="45" width="30" height="48" rx="6" fill="#FF4B00" stroke="#1F1F1F" strokeWidth="3" />
+                {/* Head with hair & sunglasses */}
+                <circle cx="50" cy="28" r="14" fill="#FCF5CD" stroke="#1F1F1F" strokeWidth="3" />
+                <path d="M 42 18 Q 50 12 58 18 Q 66 24 58 32 Q 50 20 42 18 Z" fill="#7C2D12" />
+                <rect x="44" y="24" width="14" height="6" rx="2" fill="#1F1F1F" />
+                {/* Placard "HOOK" */}
+                <rect x="-10" y="52" width="70" height="42" rx="4" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" transform="rotate(-4 25 73)" />
+                <text x="25" y="78" fontFamily="var(--font-display)" fontSize="20" fontWeight="900" fill="#FF4B00" textAnchor="middle" transform="rotate(-4 25 78)">
+                  HOOK
+                </text>
+              </g>
+
+              {/* Center Iconic Swaying Northgauge Hook in Placard Form */}
+              <g transform="translate(260, 5)">
+                {/* Swinging Hook Mascot */}
+                <circle cx="40" cy="26" r="16" fill="#FF4B00" stroke="#1F1F1F" strokeWidth="3" />
+                {/* Eye hole */}
+                <circle cx="40" cy="26" r="5" fill="#FFFDF2" stroke="#1F1F1F" strokeWidth="2.5" />
+                {/* Hook shank & bend */}
+                <path
+                  d="M 40 42 L 40 90 C 40 120 18 126 12 108 C 8 96 22 92 26 100"
+                  fill="none"
+                  stroke="#FF4B00"
+                  strokeWidth="12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
+                <path
+                  d="M 40 42 L 40 90 C 40 120 18 126 12 108 C 8 96 22 92 26 100"
+                  fill="none"
+                  stroke="#1F1F1F"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {/* Legs running */}
+                <path d="M 32 118 L 22 148 M 46 118 L 58 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
+                <path d="M 14 148 L 26 148 M 52 148 L 66 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
+              </g>
+
+              {/* Character 2 (Walking right with "KEEP" placard) */}
+              <g transform="translate(380, 8)">
+                {/* Legs */}
+                <path d="M 45 95 L 28 148 M 55 95 L 72 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Feet */}
+                <path d="M 20 148 L 32 148 M 66 148 L 80 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
+                {/* White / Orange Flare Pants */}
+                <path d="M 40 92 L 20 142 L 32 142 L 48 100 L 64 142 L 76 142 L 60 92 Z" fill="#FF4B00" />
+                {/* Torso */}
+                <rect x="35" y="44" width="28" height="48" rx="6" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" />
+                {/* Head with curly brown hair */}
+                <circle cx="49" cy="26" r="13" fill="#FCF5CD" stroke="#1F1F1F" strokeWidth="3" />
+                <path d="M 38 18 Q 49 10 58 18 Q 65 30 54 36 Q 44 34 38 24 Z" fill="#451A03" />
+                {/* Placard "KEEP" */}
+                <rect x="18" y="52" width="70" height="42" rx="4" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" transform="rotate(4 53 73)" />
+                <text x="53" y="78" fontFamily="var(--font-display)" fontSize="20" fontWeight="900" fill="#FF4B00" textAnchor="middle" transform="rotate(4 53 78)">
+                  KEEP
+                </text>
+              </g>
+
+              {/* Cute Cat (like Two26 mascot in screenshot) */}
+              <g transform="translate(480, 108)">
+                {/* Cat body */}
+                <ellipse cx="24" cy="28" rx="16" ry="10" fill="#1F1F1F" />
+                {/* Head with ears */}
+                <circle cx="10" cy="22" r="8" fill="#1F1F1F" />
+                <polygon points="4,16 8,10 11,16" fill="#1F1F1F" />
+                <polygon points="10,16 14,10 16,17" fill="#1F1F1F" />
+                {/* Tail curled up */}
+                <path d="M 38 28 Q 48 20 44 10" stroke="#1F1F1F" strokeWidth="3" fill="none" strokeLinecap="round" />
+                {/* Legs */}
+                <path d="M 14 36 L 14 42 M 22 36 L 22 42 M 30 36 L 30 42 M 36 36 L 36 42" stroke="#1F1F1F" strokeWidth="2.5" />
+              </g>
+            </svg>
+          </div>
+
+          {/* Subline */}
+          <p className="text-base sm:text-xl text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mt-3 mb-6">
+            We build brands people notice, ads that pay back, and customers who
+            come back. One team, three moves:{" "}
+            <span className="font-extrabold text-[#1F1F1F]">Hook. Reel. Keep.</span>
+          </p>
+
+          {/* Dual Action Buttons (Two26 Style) */}
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <a
+              href="#audit"
+              className="inline-flex items-center gap-3 pl-6 pr-3 py-3 rounded-full bg-[#1F1F1F] hover:bg-black text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-xl transition-all duration-150 group"
+            >
+              <span>Get a free growth audit</span>
+              <div className="w-7 h-7 rounded-full bg-[#FF4B00] text-white flex items-center justify-center transition-transform group-hover:scale-110 group-hover:rotate-45">
+                <ArrowUpRight className="w-4 h-4" />
               </div>
-            </div>
+            </a>
+
+            <a
+              href="#services"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#FAF1D6] text-[#1F1F1F] text-xs font-bold uppercase tracking-wider border border-[#1F1F1F]/15 transition-all duration-150 shadow-xs"
+            >
+              <span>See how it works</span>
+              <ArrowDown className="w-3.5 h-3.5 text-[#FF4B00]" />
+            </a>
           </div>
         </div>
       </div>
 
       {/* Editorial Bottom Bar */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full mt-10 sm:mt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 hairline-t text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/70">
-          <div className="flex items-center gap-2">
-            <span className="font-serif italic text-sm text-[#FF4B00]">01</span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full mt-auto relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 hairline-t text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/60 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-2">
+            <span className="font-mono text-[#FF4B00]">01</span>
             <span>HOOK — Creative Brand Building</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-serif italic text-sm text-[#FF4B00]">02</span>
+          <div className="flex items-center justify-center sm:justify-start gap-2">
+            <span className="font-mono text-[#FF4B00]">02</span>
             <span>REEL — Performance Marketing</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-serif italic text-sm text-[#FF4B00]">03</span>
+          <div className="flex items-center justify-center sm:justify-start gap-2">
+            <span className="font-mono text-[#FF4B00]">03</span>
             <span>KEEP — Retention & CRM</span>
           </div>
         </div>

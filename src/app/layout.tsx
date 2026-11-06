@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
+import { Plus_Jakarta_Sans, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jakarta",
+  display: "swap",
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -36,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${instrumentSerif.variable} scroll-smooth`}
+      className={`${jakarta.variable} ${bricolage.variable} ${instrumentSerif.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[#FFFDF2] text-[#1F1F1F] font-sans antialiased selection:bg-[#FF4B00] selection:text-white">
         {children}
