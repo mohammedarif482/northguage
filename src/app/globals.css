@@ -78,7 +78,7 @@ body {
   border-left: 1px solid rgba(31, 31, 31, 0.12);
 }
 
-/* Glassmorphic Hero sticker pills - no border (dark smoked glass) */
+/* Hero sticker pills - solid dark charcoal like CTA (#1F1F1F) */
 .hero-sticker-pill {
   position: absolute;
   z-index: 20;
@@ -87,16 +87,14 @@ body {
   justify-content: center;
   padding: 9px 20px;
   border-radius: 9999px;
-  background-color: rgba(18, 18, 18, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: #1F1F1F;
   color: #FFFDF2;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32), 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22), 0 3px 8px rgba(0, 0, 0, 0.12);
   border: none !important;
   outline: none;
   user-select: none;
