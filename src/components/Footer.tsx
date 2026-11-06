@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUp, Mail } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 interface FooterProps {
   onOpenPrivacy: () => void;
@@ -13,17 +13,17 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#FCF5CD] text-[#1F1F1F] py-16 sm:py-20 border-t border-[#1F1F1F]/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14 border-b border-[#1F1F1F]/15">
-          {/* Col 1: Logo & Tagline */}
+    <footer className="bg-[#FAF1D6] text-[#1F1F1F] py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 hairline-b">
+          {/* Brand Col */}
           <div className="md:col-span-5 flex flex-col items-start">
-            <div className="relative h-9 w-40 mb-4">
+            <div className="relative h-8 w-36 mb-4">
               <Image
                 src="/northgauge-wordmark.svg"
                 alt="Northgauge"
                 fill
-                className="object-contain"
+                className="object-contain object-left text-[#FF4B00]"
               />
             </div>
             <p className="text-xl sm:text-2xl font-extrabold text-[#1F1F1F] tracking-tight mb-4">
@@ -35,56 +35,55 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
             </p>
             <a
               href="mailto:hello@northgauge.com"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#FF4B00] hover:text-[#E04200] transition-colors"
+              className="text-xs font-mono font-bold text-[#FF4B00] hover:underline"
             >
-              <Mail className="w-4 h-4" />
-              <span>hello@northgauge.com</span>
+              hello@northgauge.com
             </a>
           </div>
 
-          {/* Col 2: Services / Navigation */}
+          {/* Nav Col */}
           <div className="md:col-span-3">
-            <div className="text-xs font-extrabold uppercase tracking-widest text-[#FF4B00] mb-4">
-              The Three Moves
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1F1F1F]/40 mb-4">
+              THE THREE MOVES
             </div>
-            <ul className="space-y-2.5 text-sm font-semibold text-[#1F1F1F]/80">
+            <ul className="space-y-3 text-xs font-bold uppercase tracking-[0.14em] text-[#1F1F1F]/80">
               <li>
                 <a href="#hook" className="hover:text-[#FF4B00] transition-colors">
-                  01 Hook · Creative Brand Building
+                  01 Hook — Brand Building
                 </a>
               </li>
               <li>
                 <a href="#reel" className="hover:text-[#FF4B00] transition-colors">
-                  02 Reel · Performance Ads & CRO
+                  02 Reel — Performance Ads
                 </a>
               </li>
               <li>
                 <a href="#keep" className="hover:text-[#FF4B00] transition-colors">
-                  03 Keep · Lifecycle Retention
+                  03 Keep — Retention & CRM
                 </a>
               </li>
               <li>
-                <a href="#audit" className="hover:text-[#FF4B00] transition-colors">
-                  Free Growth Audit
+                <a href="#audit" className="hover:text-[#FF4B00] transition-colors text-[#FF4B00]">
+                  Get Free Growth Audit
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Global Hubs & Social */}
+          {/* Hubs & Social */}
           <div className="md:col-span-4 flex flex-col justify-between">
             <div>
-              <div className="text-xs font-extrabold uppercase tracking-widest text-[#FF4B00] mb-4">
-                Global Operating Hubs
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1F1F1F]/40 mb-4">
+                OPERATING HUBS
               </div>
-              <div className="text-sm font-bold text-[#1F1F1F] mb-6">
+              <div className="text-sm font-bold uppercase tracking-wider text-[#1F1F1F] mb-6">
                 London · New York · Dubai · Sydney
               </div>
 
-              <div className="text-xs font-extrabold uppercase tracking-widest text-[#FF4B00] mb-3">
-                Connect
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1F1F1F]/40 mb-3">
+                CONNECT
               </div>
-              <div className="flex items-center gap-4 text-sm font-semibold text-[#1F1F1F]/80">
+              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-[#1F1F1F]/80">
                 <a
                   href="https://linkedin.com"
                   target="_blank"
@@ -109,38 +108,37 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4B00] transition-colors"
                 >
-                  X / Twitter
+                  X
                 </a>
               </div>
             </div>
 
-            {/* Back to top button */}
             <div className="mt-8">
               <button
                 onClick={scrollToTop}
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#1F1F1F]/60 hover:text-[#FF4B00] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1F1F1F]/60 hover:text-[#FF4B00] transition-colors"
               >
                 <span>Back to top</span>
-                <ArrowUp className="w-4 h-4" />
+                <ArrowUp className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#1F1F1F]/60">
+        {/* Bottom credits */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#1F1F1F]/50">
           <div>
-            © 2026 Northgauge Agency Ltd. All rights reserved.
+            © 2026 NORTHGAUGE AGENCY LTD. ALL RIGHTS RESERVED.
           </div>
           <div className="flex items-center gap-6">
             <button
               onClick={onOpenPrivacy}
-              className="hover:text-[#FF4B00] transition-colors underline cursor-pointer"
+              className="hover:text-[#FF4B00] transition-colors uppercase tracking-wider cursor-pointer"
             >
-              Privacy & Cookie Policy
+              Privacy Policy
             </button>
             <span>·</span>
-            <span>UK / EU GDPR Compliant</span>
+            <span className="uppercase tracking-wider">UK / EU GDPR</span>
           </div>
         </div>
       </div>

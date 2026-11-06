@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Minus, HelpCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -9,23 +9,23 @@ export default function FAQ() {
   const faqs = [
     {
       q: "Who do you work with?",
-      a: "Consumer and D2C brands across the UK, US, UAE, and Australia—typically doing USD $1M to $25M in annual turnover, looking for systematic creative testing, disciplined media buying, and real retention.",
+      a: "Consumer and D2C brands across the UK, US, UAE, and Australia—typically doing USD $1M to $25M a year looking to profitably scale beyond acquisition plateaus.",
     },
     {
-      q: "Do I need all three services (Hook, Reel, Keep)?",
-      a: "No. Most clients start with one stage—often a Reel performance ads sprint or a Hook brand repositioning—and add the next when signal confirms unit economics. Every stage is architected to fit together seamlessly whenever you're ready.",
+      q: "Do I need all three services?",
+      a: "No. Most clients start with one stage—typically a Reel performance ads sprint or a Hook brand repositioning—and add the next when the signal confirms unit economics.",
     },
     {
       q: "How much does it cost?",
-      a: "Monthly retainers start from USD $4,500/month for dedicated channel ownership. We scope exact creative volume, media cadence, and retention architecture directly after your free growth audit with 100% price transparency.",
+      a: "Monthly retainers start from USD $4,500/month for dedicated channel execution. We scope exact creative volume and channel ownership after your free 30-minute growth audit.",
     },
     {
       q: "How fast will we see results?",
-      a: "Paid campaigns show signal and winning creative angles within 4–6 weeks. Brand repositioning, landing page CRO, and automated retention flows compound dramatically over 3–6 months into higher LTV.",
+      a: "Paid campaigns show signal within 4–6 weeks; brand repositioning and automated retention flows compound over 3–6 months into significantly higher customer lifetime value.",
     },
     {
       q: "Which time zone do you work in?",
-      a: "We overlap directly with UK, US (Eastern & Pacific), UAE, and Australian working hours. You get a dedicated Slack channel, a weekly strategic sprint call, and live real-time Triple Whale / Looker dashboards.",
+      a: "We overlap with UK, US, UAE, and Australian hours, with a weekly strategic sprint call and live real-time dashboards.",
     },
   ];
 
@@ -34,63 +34,45 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-[#FFFDF2] border-b border-[#1F1F1F]/10">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4B00]/10 text-[#FF4B00] mb-4">
-            <HelpCircle className="w-4 h-4" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase">
-              Frequently Asked Questions
-            </span>
+    <section id="faq" className="py-24 sm:py-36 bg-[#FFFDF2] hairline-b">
+      <div className="max-w-4xl mx-auto px-6 sm:px-10">
+        {/* Section Header */}
+        <div className="pb-10 hairline-b mb-12 sm:mb-16">
+          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
+            QUESTIONS // 10
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#1F1F1F] tracking-tight mb-4">
-            Clear answers before we talk.
+          <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1F1F1F] tracking-tight">
+            Frequently asked.
           </h2>
-          <p className="text-base sm:text-lg text-[#1F1F1F]/70">
-            Everything you need to know about partnering with Northgauge.
-          </p>
         </div>
 
-        {/* Accordion */}
-        <div className="space-y-4">
+        {/* Clean Accordion List */}
+        <div className="divide-y divide-[#1F1F1F]/15">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div
-                key={faq.q}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? "bg-[#FCF5CD]/40 border-[#FF4B00]/40 shadow-xs"
-                    : "bg-white border-[#1F1F1F]/10 hover:border-[#1F1F1F]/20"
-                }`}
-              >
+              <div key={faq.q} className="py-8">
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-hidden"
+                  className="w-full text-left flex items-start justify-between gap-6 focus:outline-hidden group"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-lg sm:text-xl font-extrabold text-[#1F1F1F]">
-                    {faq.q}
-                  </span>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                      isOpen
-                        ? "bg-[#FF4B00] text-white"
-                        : "bg-stone-100 text-[#1F1F1F]"
-                    }`}
-                  >
-                    {isOpen ? (
-                      <Minus className="w-4 h-4" />
-                    ) : (
-                      <Plus className="w-4 h-4" />
-                    )}
+                  <div className="flex items-start gap-4">
+                    <span className="font-mono text-xs font-bold text-[#FF4B00] pt-1">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-xl sm:text-2xl font-extrabold text-[#1F1F1F] group-hover:text-[#FF4B00] transition-colors leading-snug">
+                      {faq.q}
+                    </span>
+                  </div>
+                  <div className="pt-1 text-[#1F1F1F]/60 group-hover:text-[#FF4B00] transition-colors">
+                    {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 text-base text-[#1F1F1F]/80 leading-relaxed font-medium animate-in fade-in duration-200">
+                  <div className="pt-4 pl-8 sm:pl-9 pr-6 text-base text-[#1F1F1F]/80 leading-relaxed font-normal animate-in fade-in duration-150">
                     {faq.a}
                   </div>
                 )}
