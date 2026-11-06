@@ -59,47 +59,34 @@ export default function Hero() {
           </h1>
 
           {/* ============================================================== */}
-          {/* Two26-Style Floating Black Sticker Pills Placed Over Letters */}
+          {/* Exactly 3 Service Sticker Pills Overlaid (Two26 Style) */}
           {/* ============================================================== */}
-          {/* Sticker 1: over HOOK / FOR */}
-          <div
-            className="hero-sticker-pill -top-3 left-[15%] sm:left-[22%] -rotate-3"
-            style={{ transform: "rotate(-3.5deg)" }}
+          {/* Pill 1: Creative-Led Brand Building (over upper line) */}
+          <a
+            href="#hook"
+            className="hero-sticker-pill -top-2 sm:top-1 left-[18%] sm:left-[26%] -rotate-3"
+            style={{ transform: "rotate(-3deg)" }}
           >
-            <span>Creative-led growth</span>
-          </div>
+            <span>Creative brand building</span>
+          </a>
 
-          {/* Sticker 2: between lines center */}
-          <div
-            className="hero-sticker-pill top-[36%] sm:top-[40%] right-[12%] sm:right-[20%] rotate-3"
+          {/* Pill 2: Performance Marketing (over CURIOUS) */}
+          <a
+            href="#reel"
+            className="hero-sticker-pill top-[44%] sm:top-[48%] left-[5%] sm:left-[10%] rotate-3"
             style={{ transform: "rotate(3deg)" }}
           >
-            <span>Hook. Reel. Keep.</span>
-          </div>
+            <span>Performance marketing</span>
+          </a>
 
-          {/* Sticker 3: over CURIOUS */}
-          <div
-            className="hero-sticker-pill top-[52%] sm:top-[56%] left-[4%] sm:left-[10%] -rotate-2"
+          {/* Pill 3: Retention Marketing (over BRANDS) */}
+          <a
+            href="#keep"
+            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%] -rotate-2"
             style={{ transform: "rotate(-2.5deg)" }}
           >
-            <span>Independent studio</span>
-          </div>
-
-          {/* Sticker 4: over BRANDS */}
-          <div
-            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%] rotate-3"
-            style={{ transform: "rotate(3.5deg)" }}
-          >
-            <span>No funny business</span>
-          </div>
-
-          {/* Sticker 5: top right subtle */}
-          <div
-            className="hidden md:inline-flex hero-sticker-pill top-2 right-[2%] -rotate-2"
-            style={{ transform: "rotate(-2deg)" }}
-          >
-            <span>Three fixes, no pitch deck</span>
-          </div>
+            <span>Retention marketing</span>
+          </a>
         </div>
 
         {/* ============================================================== */}
