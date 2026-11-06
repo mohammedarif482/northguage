@@ -201,7 +201,7 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
   return (
     <section
       id="top"
-      className="relative min-h-screen pt-32 sm:pt-36 pb-16 flex flex-col justify-between bg-[#FCF5CD] hairline-b overflow-hidden select-none"
+      className="relative min-h-screen pt-20 pb-8 sm:pt-24 sm:pb-10 flex flex-col justify-center bg-[#FCF5CD] hairline-b overflow-hidden select-none"
     >
       {/* ============================================================== */}
       {/* Two26-Style Giant Orange Looping Line Art Left & Right */}
@@ -209,7 +209,7 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       {/* Left Orange Loop */}
       <div
         ref={loopLeftRef}
-        className="absolute -left-12 sm:left-0 top-20 sm:top-28 w-44 sm:w-64 h-[450px] sm:h-[600px] pointer-events-none z-0"
+        className="absolute -left-10 sm:left-0 top-1/2 -translate-y-1/2 w-36 sm:w-52 lg:w-60 h-[380px] sm:h-[480px] pointer-events-none z-0 opacity-80"
       >
         <svg
           viewBox="0 0 229 599"
@@ -229,7 +229,7 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       {/* Right Orange Loop */}
       <div
         ref={loopRightRef}
-        className="absolute -right-16 sm:right-0 top-16 sm:top-24 w-56 sm:w-80 h-[380px] sm:h-[500px] pointer-events-none z-0"
+        className="absolute -right-12 sm:right-0 top-1/2 -translate-y-1/2 w-44 sm:w-64 lg:w-72 h-[320px] sm:h-[420px] pointer-events-none z-0 opacity-80"
       >
         <svg
           viewBox="0 0 354 487"
@@ -249,63 +249,66 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       {/* ============================================================== */}
       {/* Main Hero Container */}
       {/* ============================================================== */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10 my-auto text-center flex flex-col items-center">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 w-full relative z-10 text-center flex flex-col items-center">
         {/* Giant Two26-Style Display Typography */}
-        <div className="relative inline-block w-full max-w-5xl my-4 sm:my-8">
+        <div className="relative inline-block w-full max-w-4xl my-2 sm:my-4">
           {/* Main Giant Headline with overflow masks for slide-up reveal */}
-          <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[9.5rem] xl:text-[10.5rem] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.88] drop-shadow-xs">
+          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.8rem] xl:text-[7.6rem] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.9] drop-shadow-xs">
             <span className="block overflow-hidden pb-1">
               <span ref={line1Ref} className="block will-change-transform">
                 A HOOK FOR
               </span>
             </span>
-            <span className="block overflow-hidden mt-1 sm:mt-2 pb-1">
-              <span ref={line2Ref} className="block will-change-transform">
+            <span className="block overflow-hidden mt-1 pb-1">
+              <span
+                ref={line2Ref}
+                className="block will-change-transform whitespace-nowrap"
+              >
                 CURIOUS BRANDS
               </span>
             </span>
           </h1>
 
           {/* ============================================================== */}
-          {/* Exactly 3 Service Sticker Pills Overlaid (Two26 Style with GSAP) */}
+          {/* Exactly 3 Service Sticker Pills Overlaid (Solid Dark Charcoal) */}
           {/* ============================================================== */}
-          {/* Pill 1: Creative-Led Brand Building (over upper line) */}
+          {/* Pill 1: Creative Brand Building */}
           <a
             ref={pill1Ref}
             href="#hook"
-            className="hero-sticker-pill -top-2 sm:top-1 left-[18%] sm:left-[26%]"
+            className="hero-sticker-pill -top-2 sm:top-0 left-[14%] sm:left-[20%]"
           >
             <span>Creative brand building</span>
           </a>
 
-          {/* Pill 2: Performance Marketing (over CURIOUS) */}
+          {/* Pill 2: Performance Marketing */}
           <a
             ref={pill2Ref}
             href="#reel"
-            className="hero-sticker-pill top-[44%] sm:top-[48%] left-[5%] sm:left-[10%]"
+            className="hero-sticker-pill top-[46%] left-[2%] sm:left-[6%]"
           >
             <span>Performance marketing</span>
           </a>
 
-          {/* Pill 3: Retention Marketing (over BRANDS) */}
+          {/* Pill 3: Retention Marketing */}
           <a
             ref={pill3Ref}
             href="#keep"
-            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%]"
+            className="hero-sticker-pill -bottom-2 sm:bottom-0 right-[2%] sm:right-[8%]"
           >
             <span>Retention marketing</span>
           </a>
         </div>
 
         {/* ============================================================== */}
-        {/* Subline & Action Buttons */}
+        {/* Subline & Action Buttons (Compact Viewport Fit) */}
         {/* ============================================================== */}
         <div
           ref={bottomContentRef}
-          className="w-full max-w-2xl mt-8 sm:mt-12 mb-6 flex flex-col items-center"
+          className="w-full max-w-2xl mt-4 sm:mt-6 flex flex-col items-center"
         >
           {/* Subline */}
-          <p className="text-base sm:text-xl text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mb-8">
+          <p className="text-sm sm:text-base lg:text-lg text-[#1F1F1F]/80 font-medium leading-relaxed max-w-lg text-center mb-5 sm:mb-6">
             We build brands people notice, ads that pay back, and customers who
             come back. One team, three moves:{" "}
             <span className="font-extrabold text-[#1F1F1F]">Hook. Reel. Keep.</span>
