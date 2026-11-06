@@ -142,3 +142,4 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     </div>
   );
 }
+

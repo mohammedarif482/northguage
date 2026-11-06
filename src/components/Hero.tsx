@@ -333,24 +333,6 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
           </div>
         </div>
       </div>
-
-      {/* Editorial Bottom Bar */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full mt-auto relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 hairline-t text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/60 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <span className="font-mono text-[#FF4B00]">01</span>
-            <span>HOOK — Creative Brand Building</span>
-          </div>
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <span className="font-mono text-[#FF4B00]">02</span>
-            <span>REEL — Performance Marketing</span>
-          </div>
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <span className="font-mono text-[#FF4B00]">03</span>
-            <span>KEEP — Retention & CRM</span>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
