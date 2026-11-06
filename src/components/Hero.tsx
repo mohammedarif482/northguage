@@ -134,14 +134,14 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
         delay: 1.2 + index * 0.25,
       });
 
-      // Mouse enter pop (glassmorphic lift, no border)
+      // Mouse enter pop (dark glassmorphic lift, no border)
       const onEnter = () => {
         floatTween.pause();
         gsap.to(el, {
           scale: 1.14,
           rotation: 0,
-          boxShadow: "0 20px 45px rgba(0, 0, 0, 0.28)",
-          backgroundColor: "rgba(20, 20, 20, 0.72)",
+          boxShadow: "0 24px 50px rgba(0, 0, 0, 0.45)",
+          backgroundColor: "rgba(10, 10, 10, 0.94)",
           duration: 0.35,
           ease: "back.out(2.2)",
           overwrite: "auto",
@@ -163,15 +163,15 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
         });
       };
 
-      // Elastic snap-back on leave (glassmorphic rest, no border)
+      // Elastic snap-back on leave (dark glassmorphic rest, no border)
       const onLeave = () => {
         gsap.to(el, {
           x: 0,
           y: 0,
           scale: 1,
           rotation: baseRot,
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.14)",
-          backgroundColor: "rgba(31, 31, 31, 0.48)",
+          boxShadow: "0 14px 38px rgba(0, 0, 0, 0.32)",
+          backgroundColor: "rgba(18, 18, 18, 0.82)",
           duration: 0.7,
           ease: "elastic.out(1.1, 0.4)",
           onComplete: () => {
