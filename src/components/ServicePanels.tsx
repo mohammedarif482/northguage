@@ -9,13 +9,14 @@ export default function ServicePanels() {
       {/* ============================================================== */}
       {/* 01 HOOK */}
       {/* ============================================================== */}
-      <div id="hook" className="scroll-mt-20 py-24 sm:py-32 hairline-b">
+      <div id="hook" className="scroll-mt-20 py-24 sm:py-36 hairline-b">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: Editorial Copy */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
-                01 // HOOK
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
+                <span className="font-serif italic text-base">01</span>
+                <span>// HOOK · Creative-Led Brand Building</span>
               </div>
 
               <h3 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#1F1F1F] tracking-tight leading-[1.05] mb-6">
@@ -32,7 +33,7 @@ export default function ServicePanels() {
                 <div className="text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/40 mb-4">
                   Signs you need this
                 </div>
-                <ul className="space-y-2 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
+                <ul className="space-y-2.5 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
                   <li className="flex items-start gap-3">
                     <span className="text-[#FF4B00] font-mono">—</span>
                     <span>Your ads work but nobody remembers your name</span>
@@ -54,10 +55,10 @@ export default function ServicePanels() {
                   What we do
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-[#1F1F1F]">
-                  <div className="py-2 hairline-b">Brand strategy & positioning</div>
-                  <div className="py-2 hairline-b">Identity & packaging</div>
-                  <div className="py-2 hairline-b">Content & campaign concepts</div>
-                  <div className="py-2 hairline-b">Creator & UGC programmes</div>
+                  <div className="py-2.5 hairline-b">Brand strategy & positioning</div>
+                  <div className="py-2.5 hairline-b">Identity & packaging</div>
+                  <div className="py-2.5 hairline-b">Content & campaign concepts</div>
+                  <div className="py-2.5 hairline-b">Creator & UGC programmes</div>
                 </div>
               </div>
 
@@ -73,10 +74,10 @@ export default function ServicePanels() {
 
             {/* Right: Editorial Visual */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-md p-8 sm:p-12 rounded-2xl bg-[#FCF5CD] border border-[#1F1F1F]/15 flex flex-col justify-between aspect-4/5">
+              <div className="w-full max-w-md p-8 sm:p-12 rounded-2xl bg-[#FCF5CD] border border-[#1F1F1F]/15 flex flex-col justify-between aspect-4/5 shadow-xs">
                 <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.18em] text-[#1F1F1F]/60 pb-4 hairline-b">
                   <span>Visual Craft</span>
-                  <span className="font-mono">HOOK.01</span>
+                  <span className="font-serif italic text-sm text-[#FF4B00]">HOOK.01</span>
                 </div>
 
                 <div className="my-auto py-8 text-center">
@@ -109,7 +110,7 @@ export default function ServicePanels() {
       {/* ============================================================== */}
       {/* 02 REEL */}
       {/* ============================================================== */}
-      <div id="reel" className="scroll-mt-20 py-24 sm:py-32 bg-[#FCF5CD]/40 hairline-b">
+      <div id="reel" className="scroll-mt-20 py-24 sm:py-36 bg-[#FCF5CD]/40 hairline-b">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Visual Left on Desktop */}
@@ -117,7 +118,7 @@ export default function ServicePanels() {
               <div className="w-full max-w-md p-8 sm:p-12 rounded-2xl bg-[#1F1F1F] text-white flex flex-col justify-between aspect-4/5 shadow-md">
                 <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.18em] text-white/50 pb-4 border-b border-white/15">
                   <span>Performance Architecture</span>
-                  <span className="font-mono text-[#FF4B00]">REEL.02</span>
+                  <span className="font-serif italic text-sm text-[#FF4B00]">REEL.02</span>
                 </div>
 
                 <div className="my-auto py-8 space-y-6">
@@ -155,8 +156,9 @@ export default function ServicePanels() {
 
             {/* Copy Right on Desktop */}
             <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col items-start">
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
-                02 // REEL
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
+                <span className="font-serif italic text-base">02</span>
+                <span>// REEL · Performance Marketing</span>
               </div>
 
               <h3 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#1F1F1F] tracking-tight leading-[1.05] mb-6">
@@ -173,7 +175,7 @@ export default function ServicePanels() {
                 <div className="text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/40 mb-4">
                   Signs you need this
                 </div>
-                <ul className="space-y-2 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
+                <ul className="space-y-2.5 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
                   <li className="flex items-start gap-3">
                     <span className="text-[#FF4B00] font-mono">—</span>
                     <span>ROAS dropping as you scale spend</span>
@@ -195,10 +197,10 @@ export default function ServicePanels() {
                   What we do
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-[#1F1F1F]">
-                  <div className="py-2 hairline-b">Meta, Google, TikTok & Amazon ads</div>
-                  <div className="py-2 hairline-b">Creative testing at volume (50+ ads/mo)</div>
-                  <div className="py-2 hairline-b">Landing pages & CRO sprints</div>
-                  <div className="py-2 hairline-b">Tracking, attribution & weekly reports</div>
+                  <div className="py-2.5 hairline-b">Meta, Google, TikTok & Amazon ads</div>
+                  <div className="py-2.5 hairline-b">Creative testing at volume (50+ ads/mo)</div>
+                  <div className="py-2.5 hairline-b">Landing pages & CRO sprints</div>
+                  <div className="py-2.5 hairline-b">Tracking, attribution & weekly reports</div>
                 </div>
               </div>
 
@@ -218,13 +220,14 @@ export default function ServicePanels() {
       {/* ============================================================== */}
       {/* 03 KEEP */}
       {/* ============================================================== */}
-      <div id="keep" className="scroll-mt-20 py-24 sm:py-32 hairline-b">
+      <div id="keep" className="scroll-mt-20 py-24 sm:py-36 hairline-b">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: Editorial Copy */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
-                03 // KEEP
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4B00] mb-4">
+                <span className="font-serif italic text-base">03</span>
+                <span>// KEEP · Retention Marketing</span>
               </div>
 
               <h3 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#1F1F1F] tracking-tight leading-[1.05] mb-6">
@@ -240,7 +243,7 @@ export default function ServicePanels() {
                 <div className="text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/40 mb-4">
                   Signs you need this
                 </div>
-                <ul className="space-y-2 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
+                <ul className="space-y-2.5 text-sm sm:text-base text-[#1F1F1F]/85 font-medium">
                   <li className="flex items-start gap-3">
                     <span className="text-[#FF4B00] font-mono">—</span>
                     <span>Customers buy once and vanish into the ether</span>
@@ -262,10 +265,10 @@ export default function ServicePanels() {
                   What we do
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-[#1F1F1F]">
-                  <div className="py-2 hairline-b">Email & SMS flows (Klaviyo and others)</div>
-                  <div className="py-2 hairline-b">WhatsApp & push journeys</div>
-                  <div className="py-2 hairline-b">Loyalty, referral & subscriptions</div>
-                  <div className="py-2 hairline-b">LTV & cohort reporting</div>
+                  <div className="py-2.5 hairline-b">Email & SMS flows (Klaviyo and others)</div>
+                  <div className="py-2.5 hairline-b">WhatsApp & push journeys</div>
+                  <div className="py-2.5 hairline-b">Loyalty, referral & subscriptions</div>
+                  <div className="py-2.5 hairline-b">LTV & cohort reporting</div>
                 </div>
               </div>
 
@@ -281,10 +284,10 @@ export default function ServicePanels() {
 
             {/* Right: Editorial Visual */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-md p-8 sm:p-12 rounded-2xl bg-[#FCF5CD] border border-[#1F1F1F]/15 flex flex-col justify-between aspect-4/5">
+              <div className="w-full max-w-md p-8 sm:p-12 rounded-2xl bg-[#FCF5CD] border border-[#1F1F1F]/15 flex flex-col justify-between aspect-4/5 shadow-xs">
                 <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.18em] text-[#1F1F1F]/60 pb-4 hairline-b">
                   <span>Lifecycle Dynamics</span>
-                  <span className="font-mono">KEEP.03</span>
+                  <span className="font-serif italic text-sm text-[#FF4B00]">KEEP.03</span>
                 </div>
 
                 <div className="my-auto py-8 space-y-6">

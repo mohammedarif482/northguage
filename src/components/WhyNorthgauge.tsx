@@ -35,20 +35,22 @@ export default function WhyNorthgauge() {
   ];
 
   return (
-    <section id="why-us" className="py-24 sm:py-32 bg-[#FFFDF2] hairline-b">
+    <section id="why-us" className="py-24 sm:py-36 bg-[#FFFDF2] hairline-b">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 hairline-b mb-12 sm:mb-16 gap-6">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
-              PILLARS // 08
+            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
+              <span>PILLARS</span>
+              <span>·</span>
+              <span className="font-serif italic text-sm text-[#FF4B00]">08 // STANDARDS</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1F1F1F] tracking-tight">
               Why curious brands stay with us
             </h2>
           </div>
           <p className="text-sm font-medium text-[#1F1F1F]/70 max-w-sm">
-            Built on curiosity, discovery, and direct accountability.
+            Built on curiosity, discovery, and direct operator accountability.
           </p>
         </div>
 
@@ -66,7 +68,7 @@ export default function WhyNorthgauge() {
                     <div className="w-12 h-12 rounded-xl bg-[#FCF5CD] text-[#FF4B00] flex items-center justify-center">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#FF4B00]">
+                    <span className="font-serif italic text-2xl font-normal text-[#FF4B00]">
                       {pillar.num}
                     </span>
                   </div>

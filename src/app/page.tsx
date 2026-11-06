@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import ScrollHookMarker from "@/components/ScrollHookMarker";
 import Hero from "@/components/Hero";
@@ -22,59 +23,61 @@ export default function Home() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#FFFDF2] text-[#1F1F1F]">
-      {/* Sticky Header with dynamic shrink */}
-      <Header />
+    <SmoothScroll>
+      <div className="relative min-h-screen flex flex-col bg-[#FFFDF2] text-[#1F1F1F]">
+        {/* Floating Glass Pill Navigation */}
+        <Header />
 
-      {/* Floating scroll progress hook marker along right edge */}
-      <ScrollHookMarker />
+        {/* Scroll Progress Indicator Track on the Right Edge */}
+        <ScrollHookMarker />
 
-      <main className="grow">
-        {/* 1. Hero Section (#top) */}
-        <Hero />
+        <main className="grow">
+          {/* 1. Hero (#top) */}
+          <Hero />
 
-        {/* 2. Client Logo Marquee Strip */}
-        <LogoStrip />
+          {/* 2. Client Logo Strip */}
+          <LogoStrip />
 
-        {/* 3. Proof Numbers with interactive count-up */}
-        <ProofNumbers />
+          {/* 3. Proof Numbers Counters */}
+          <ProofNumbers />
 
-        {/* 4. The Problem Manifesto */}
-        <TheProblem />
+          {/* 4. The Problem Manifesto */}
+          <TheProblem />
 
-        {/* 5. Hook. Reel. Keep. Spine Overview (#services) */}
-        <HookReelKeepOverview />
+          {/* 5. Hook. Reel. Keep. Spine Overview (#services) */}
+          <HookReelKeepOverview />
 
-        {/* 6. Service Deep Dives (#hook, #reel, #keep) */}
-        <ServicePanels />
+          {/* 6. Service Deep Dives (#hook, #reel, #keep) */}
+          <ServicePanels />
 
-        {/* 7. Featured Work Case Studies & Interactive Modal (#work) */}
-        <FeaturedWork />
+          {/* 7. Featured Work Case Studies (#work) */}
+          <FeaturedWork />
 
-        {/* 8. Why Northgauge Brand Pillars (#why-us) */}
-        <WhyNorthgauge />
+          {/* 8. Why Northgauge Brand Pillars (#why-us) */}
+          <WhyNorthgauge />
 
-        {/* 9. Testimonial Carousel */}
-        <Testimonials />
+          {/* 9. Testimonials */}
+          <Testimonials />
 
-        {/* 10. FAQ Accordion (#faq) */}
-        <FAQ />
+          {/* 10. FAQ Accordion (#faq) */}
+          <FAQ />
 
-        {/* 11. Book an Audit (Full-width Orange block + interactive form) (#audit) */}
-        <AuditBooking />
-      </main>
+          {/* 11. Book an Audit (Full-bleed Orange CTA block) (#audit) */}
+          <AuditBooking />
+        </main>
 
-      {/* Footer */}
-      <Footer onOpenPrivacy={() => setPrivacyOpen(true)} />
+        {/* Footer */}
+        <Footer onOpenPrivacy={() => setPrivacyOpen(true)} />
 
-      {/* Cookie consent banner */}
-      <CookieBanner onOpenPrivacy={() => setPrivacyOpen(true)} />
+        {/* Cookie Banner */}
+        <CookieBanner onOpenPrivacy={() => setPrivacyOpen(true)} />
 
-      {/* Privacy modal */}
-      <PrivacyModal
-        isOpen={privacyOpen}
-        onClose={() => setPrivacyOpen(false)}
-      />
-    </div>
+        {/* Privacy Policy Modal */}
+        <PrivacyModal
+          isOpen={privacyOpen}
+          onClose={() => setPrivacyOpen(false)}
+        />
+      </div>
+    </SmoothScroll>
   );
 }

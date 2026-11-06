@@ -32,13 +32,15 @@ export default function HookReelKeepOverview() {
   ];
 
   return (
-    <section id="services" className="py-24 sm:py-32 bg-[#FCF5CD] hairline-b">
+    <section id="services" className="py-24 sm:py-36 bg-[#FCF5CD] hairline-b">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 hairline-b mb-12 sm:mb-16 gap-6">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
-              THE SPINE // 05
+            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
+              <span>THE SPINE</span>
+              <span>·</span>
+              <span className="font-serif italic text-sm text-[#FF4B00]">05 // SERVICES</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1F1F1F] tracking-tight">
               Three moves. One line.
@@ -49,11 +51,11 @@ export default function HookReelKeepOverview() {
           </p>
         </div>
 
-        {/* The Thin Orange Fishing Line joined through the 3 columns ending in the hook */}
+        {/* The Continuous Orange Fishing Line from Two26 & Plan */}
         <div className="relative mb-10 hidden md:block">
           <div className="h-[2px] bg-[#FF4B00] w-full relative">
             {/* The Hook icon at the end of the line */}
-            <div className="absolute -top-3 right-0 w-8 h-8 text-[#FF4B00]">
+            <div className="absolute -top-3.5 right-0 w-8 h-8 text-[#FF4B00]">
               <Image
                 src="/northgauge-hook.svg"
                 alt=""
@@ -70,13 +72,13 @@ export default function HookReelKeepOverview() {
             <a
               key={col.id}
               href={`#${col.id}`}
-              className={`group flex flex-col justify-between py-6 ${
+              className={`group flex flex-col justify-between py-6 transition-all duration-200 ${
                 idx === 0 ? "md:pr-10" : idx === 1 ? "md:px-10" : "md:pl-10"
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-8">
-                  <span className="font-mono text-2xl font-bold text-[#FF4B00]">
+                  <span className="font-serif italic text-3xl font-normal text-[#FF4B00]">
                     {col.num}
                   </span>
                   <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1F1F1F]/40 group-hover:text-[#FF4B00] transition-colors">
