@@ -201,7 +201,7 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
   return (
     <section
       id="top"
-      className="relative min-h-screen pt-32 sm:pt-36 pb-16 flex flex-col justify-between bg-[#FDF3EC] hairline-b overflow-hidden select-none"
+      className="relative min-h-screen pt-32 sm:pt-36 pb-16 flex flex-col justify-between bg-[#FCF5CD] hairline-b overflow-hidden select-none"
     >
       {/* ============================================================== */}
       {/* Two26-Style Giant Orange Looping Line Art Left & Right */}
