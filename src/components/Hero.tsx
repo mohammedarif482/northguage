@@ -1,9 +1,106 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
 
 export default function Hero() {
+  const pill1Ref = useRef<HTMLAnchorElement>(null);
+  const pill2Ref = useRef<HTMLAnchorElement>(null);
+  const pill3Ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const pills = [
+      { ref: pill1Ref, baseRot: -3.5 },
+      { ref: pill2Ref, baseRot: 3 },
+      { ref: pill3Ref, baseRot: -2.5 },
+    ];
+
+    const cleanups: (() => void)[] = [];
+
+    pills.forEach(({ ref, baseRot }, index) => {
+      const el = ref.current;
+      if (!el) return;
+
+      // Set initial rotation
+      gsap.set(el, { rotation: baseRot, transformOrigin: "center center" });
+
+      // Subtle organic idle float
+      const floatTween = gsap.to(el, {
+        y: index % 2 === 0 ? "-=4" : "+=4",
+        rotation: baseRot + (index % 2 === 0 ? 1 : -1),
+        duration: 2.2 + index * 0.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: index * 0.3,
+      });
+
+      // Mouse enter pop
+      const onEnter = () => {
+        floatTween.pause();
+        gsap.to(el, {
+          scale: 1.14,
+          rotation: 0,
+          boxShadow: "0 20px 40px rgba(31, 31, 31, 0.32)",
+          borderColor: "#FF4B00",
+          backgroundColor: "#000000",
+          duration: 0.35,
+          ease: "back.out(2.2)",
+          overwrite: "auto",
+        });
+      };
+
+      // Magnetic pull tracking cursor
+      const onMouseMove = (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const relX = e.clientX - (rect.left + rect.width / 2);
+        const relY = e.clientY - (rect.top + rect.height / 2);
+
+        gsap.to(el, {
+          x: relX * 0.32,
+          y: relY * 0.32,
+          duration: 0.25,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      };
+
+      // Elastic snap-back on leave
+      const onLeave = () => {
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotation: baseRot,
+          boxShadow: "0 8px 24px rgba(31, 31, 31, 0.18)",
+          borderColor: "rgba(255, 255, 255, 0.12)",
+          backgroundColor: "#1F1F1F",
+          duration: 0.7,
+          ease: "elastic.out(1.1, 0.4)",
+          onComplete: () => {
+            floatTween.resume();
+          },
+        });
+      };
+
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mousemove", onMouseMove);
+      el.addEventListener("mouseleave", onLeave);
+
+      cleanups.push(() => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mousemove", onMouseMove);
+        el.removeEventListener("mouseleave", onLeave);
+        floatTween.kill();
+      });
+    });
+
+    return () => {
+      cleanups.forEach((c) => c());
+    };
+  }, []);
   return (
     <section
       id="top"
@@ -59,31 +156,31 @@ export default function Hero() {
           </h1>
 
           {/* ============================================================== */}
-          {/* Exactly 3 Service Sticker Pills Overlaid (Two26 Style) */}
+          {/* Exactly 3 Service Sticker Pills Overlaid (Two26 Style with GSAP) */}
           {/* ============================================================== */}
           {/* Pill 1: Creative-Led Brand Building (over upper line) */}
           <a
+            ref={pill1Ref}
             href="#hook"
-            className="hero-sticker-pill -top-2 sm:top-1 left-[18%] sm:left-[26%] -rotate-3"
-            style={{ transform: "rotate(-3deg)" }}
+            className="hero-sticker-pill -top-2 sm:top-1 left-[18%] sm:left-[26%]"
           >
             <span>Creative brand building</span>
           </a>
 
           {/* Pill 2: Performance Marketing (over CURIOUS) */}
           <a
+            ref={pill2Ref}
             href="#reel"
-            className="hero-sticker-pill top-[44%] sm:top-[48%] left-[5%] sm:left-[10%] rotate-3"
-            style={{ transform: "rotate(3deg)" }}
+            className="hero-sticker-pill top-[44%] sm:top-[48%] left-[5%] sm:left-[10%]"
           >
             <span>Performance marketing</span>
           </a>
 
           {/* Pill 3: Retention Marketing (over BRANDS) */}
           <a
+            ref={pill3Ref}
             href="#keep"
-            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%] -rotate-2"
-            style={{ transform: "rotate(-2.5deg)" }}
+            className="hero-sticker-pill bottom-2 sm:bottom-4 right-[6%] sm:right-[14%]"
           >
             <span>Retention marketing</span>
           </a>
