@@ -185,107 +185,11 @@ export default function Hero() {
         </div>
 
         {/* ============================================================== */}
-        {/* Walking Characters / Hook Art (Two26 Style Illustration) */}
+        {/* Subline & Action Buttons */}
         {/* ============================================================== */}
-        <div className="w-full max-w-2xl mt-4 sm:mt-6 mb-8 flex flex-col items-center">
-          <div className="relative w-full h-44 sm:h-56 flex items-end justify-center">
-            {/* Illustrated Characters with Walking Signs HOOK & REEL & KEEP */}
-            <svg
-              viewBox="0 0 600 160"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full max-w-xl"
-            >
-              {/* Ground hairline */}
-              <line x1="20" y1="150" x2="580" y2="150" stroke="#1F1F1F" strokeWidth="2" strokeDasharray="6 6" />
-
-              {/* Character 1 (Walking left-center with "HOOK" placard) */}
-              <g transform="translate(110, 10)">
-                {/* Legs */}
-                <path d="M 45 95 L 30 148 M 55 95 L 75 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
-                {/* Feet */}
-                <path d="M 22 148 L 34 148 M 68 148 L 84 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
-                {/* Orange Pants */}
-                <path d="M 40 92 L 25 142 L 35 142 L 48 100 L 62 142 L 72 142 L 60 92 Z" fill="#FF4B00" />
-                {/* Torso & Orange Jacket */}
-                <rect x="35" y="45" width="30" height="48" rx="6" fill="#FF4B00" stroke="#1F1F1F" strokeWidth="3" />
-                {/* Head with hair & sunglasses */}
-                <circle cx="50" cy="28" r="14" fill="#FCF5CD" stroke="#1F1F1F" strokeWidth="3" />
-                <path d="M 42 18 Q 50 12 58 18 Q 66 24 58 32 Q 50 20 42 18 Z" fill="#7C2D12" />
-                <rect x="44" y="24" width="14" height="6" rx="2" fill="#1F1F1F" />
-                {/* Placard "HOOK" */}
-                <rect x="-10" y="52" width="70" height="42" rx="4" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" transform="rotate(-4 25 73)" />
-                <text x="25" y="78" fontFamily="var(--font-display)" fontSize="20" fontWeight="900" fill="#FF4B00" textAnchor="middle" transform="rotate(-4 25 78)">
-                  HOOK
-                </text>
-              </g>
-
-              {/* Center Iconic Swaying Northgauge Hook in Placard Form */}
-              <g transform="translate(260, 5)">
-                {/* Swinging Hook Mascot */}
-                <circle cx="40" cy="26" r="16" fill="#FF4B00" stroke="#1F1F1F" strokeWidth="3" />
-                {/* Eye hole */}
-                <circle cx="40" cy="26" r="5" fill="#FFFDF2" stroke="#1F1F1F" strokeWidth="2.5" />
-                {/* Hook shank & bend */}
-                <path
-                  d="M 40 42 L 40 90 C 40 120 18 126 12 108 C 8 96 22 92 26 100"
-                  fill="none"
-                  stroke="#FF4B00"
-                  strokeWidth="12"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M 40 42 L 40 90 C 40 120 18 126 12 108 C 8 96 22 92 26 100"
-                  fill="none"
-                  stroke="#1F1F1F"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                {/* Legs running */}
-                <path d="M 32 118 L 22 148 M 46 118 L 58 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
-                <path d="M 14 148 L 26 148 M 52 148 L 66 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
-              </g>
-
-              {/* Character 2 (Walking right with "KEEP" placard) */}
-              <g transform="translate(380, 8)">
-                {/* Legs */}
-                <path d="M 45 95 L 28 148 M 55 95 L 72 148" stroke="#1F1F1F" strokeWidth="3.5" strokeLinecap="round" />
-                {/* Feet */}
-                <path d="M 20 148 L 32 148 M 66 148 L 80 148" stroke="#1F1F1F" strokeWidth="4" strokeLinecap="round" />
-                {/* White / Orange Flare Pants */}
-                <path d="M 40 92 L 20 142 L 32 142 L 48 100 L 64 142 L 76 142 L 60 92 Z" fill="#FF4B00" />
-                {/* Torso */}
-                <rect x="35" y="44" width="28" height="48" rx="6" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" />
-                {/* Head with curly brown hair */}
-                <circle cx="49" cy="26" r="13" fill="#FCF5CD" stroke="#1F1F1F" strokeWidth="3" />
-                <path d="M 38 18 Q 49 10 58 18 Q 65 30 54 36 Q 44 34 38 24 Z" fill="#451A03" />
-                {/* Placard "KEEP" */}
-                <rect x="18" y="52" width="70" height="42" rx="4" fill="#FFFFFF" stroke="#1F1F1F" strokeWidth="3" transform="rotate(4 53 73)" />
-                <text x="53" y="78" fontFamily="var(--font-display)" fontSize="20" fontWeight="900" fill="#FF4B00" textAnchor="middle" transform="rotate(4 53 78)">
-                  KEEP
-                </text>
-              </g>
-
-              {/* Cute Cat (like Two26 mascot in screenshot) */}
-              <g transform="translate(480, 108)">
-                {/* Cat body */}
-                <ellipse cx="24" cy="28" rx="16" ry="10" fill="#1F1F1F" />
-                {/* Head with ears */}
-                <circle cx="10" cy="22" r="8" fill="#1F1F1F" />
-                <polygon points="4,16 8,10 11,16" fill="#1F1F1F" />
-                <polygon points="10,16 14,10 16,17" fill="#1F1F1F" />
-                {/* Tail curled up */}
-                <path d="M 38 28 Q 48 20 44 10" stroke="#1F1F1F" strokeWidth="3" fill="none" strokeLinecap="round" />
-                {/* Legs */}
-                <path d="M 14 36 L 14 42 M 22 36 L 22 42 M 30 36 L 30 42 M 36 36 L 36 42" stroke="#1F1F1F" strokeWidth="2.5" />
-              </g>
-            </svg>
-          </div>
-
+        <div className="w-full max-w-2xl mt-12 sm:mt-16 mb-8 flex flex-col items-center">
           {/* Subline */}
-          <p className="text-base sm:text-xl text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mt-3 mb-6">
+          <p className="text-base sm:text-xl text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mb-8">
             We build brands people notice, ads that pay back, and customers who
             come back. One team, three moves:{" "}
             <span className="font-extrabold text-[#1F1F1F]">Hook. Reel. Keep.</span>
