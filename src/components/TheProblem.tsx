@@ -114,16 +114,6 @@ export default function TheProblem() {
         ref={containerRef}
         className="max-w-5xl mx-auto px-6 sm:px-10 relative z-10"
       >
-        {/* Two26-Style Section Header: A BIT ABOUT US */}
-        <div className="flex items-center justify-between pb-4 hairline-b mb-12 sm:mb-16">
-          <div className="text-xs sm:text-sm font-bold uppercase tracking-[0.24em] text-[#1F1F1F]/70">
-            A BIT ABOUT US 
-          </div>
-          <div className="font-serif italic text-sm text-[#FF4B00]">
-            04 // MANIFESTO
-          </div>
-        </div>
-
         {/* Main Kinetic Typography Box - Pure, No Pills */}
         <div className="relative space-y-8">
           {/* Main Manifesto Copy - Light, Refined Weight */}
