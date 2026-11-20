@@ -1,28 +1,28 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { CONTACT_EMAIL } from "@/lib/site";
+import { SOCIAL } from "@/lib/content";
+import { FitButton, R, SmartLink } from "./ui";
+import type { PageKey } from "./Header";
 
 interface FooterProps {
+  page: PageKey;
+  heading: ReactNode;
   onOpenPrivacy: () => void;
 }
 
-const menuLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Why us", href: "#why-us" },
-  { label: "FAQ", href: "#faq" },
-];
-
-const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "X", href: "https://twitter.com" },
-];
-
-export default function Footer({ onOpenPrivacy }: FooterProps) {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+export default function Footer({ page, heading, onOpenPrivacy }: FooterProps) {
+  const services = [
+    { label: "Media buying", href: "/media-buying" },
+    { label: "Hook OS", href: "/hook-os" },
+    { label: "Results", href: page === "main" ? "#work" : page === "media-buying" ? "#cases" : "/#work" },
+  ];
+  const socials = [
+    { label: "Instagram", href: SOCIAL.instagram },
+    { label: "LinkedIn", href: SOCIAL.linkedin },
+  ];
 
   return (
     <footer className="relative bg-[#1F1F1F] text-[#FFFDF2] overflow-hidden border-t border-[#FFFDF2]/10">
@@ -42,62 +42,54 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
       </svg>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 pt-14 sm:pt-20">
-        {/* Top: Headline + CTA | Menu + Socials */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16">
           <div className="lg:col-span-7 flex flex-col items-start">
-            <h2 className="text-5xl sm:text-7xl mb-6 font-display font-black uppercase tracking-tight leading-[0.9]">
-              Still curious?
-              <br />
-              <span className="text-[#FF4B00]">Say hello.</span>
-            </h2>
-
-            <a
-              href="#audit"
-              className="inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#FF4B00] hover:bg-[#E04200] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-xl transition-all duration-150 group mb-8"
-            >
-              <span>Book a call</span>
-              <span className="w-7 h-7 rounded-full bg-[#1F1F1F] text-white flex items-center justify-center transition-transform group-hover:scale-110 group-hover:rotate-45">
-                <ArrowUpRight className="w-4 h-4" />
-              </span>
-            </a>
-
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#FF4B00] mb-2">Email us</div>
-            <a
-              href="mailto:hello@northgauge.com"
-              className="text-xl sm:text-2xl font-bold hover:underline underline-offset-4"
-            >
-              hello@northgauge.com
-            </a>
+            <h2 className="text-5xl sm:text-7xl mb-8 font-display font-black uppercase tracking-tight leading-[0.9]">{heading}</h2>
+            <FitButton tone="orange" where="footer" className="mb-8" />
+            <p className="text-base sm:text-lg font-medium leading-relaxed text-[#FFFDF2]/70 max-w-lg">
+              Ads, creative and retention for D2C brands, run as one P&amp;L. Backed and funded by the Indian School of
+              Business (ISB) through its I-Venture Immersive programme.
+            </p>
           </div>
 
           <div className="lg:col-span-5 grid grid-cols-2 gap-8">
             <div>
-              <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#FF4B00] mb-5">Main menu</div>
+              <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#FF4B00] mb-5">Services</div>
               <ul className="space-y-3 text-lg sm:text-xl font-bold">
-                {menuLinks.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="hover:text-[#FF4B00] transition-colors">
-                      {link.label}
-                    </a>
+                {services.map((l) => (
+                  <li key={l.label}>
+                    <SmartLink href={l.href} className="hover:text-[#FF4B00] transition-colors">
+                      {l.label}
+                    </SmartLink>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#FF4B00] mb-5">Follow</div>
+              <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#FF4B00] mb-5">Contact</div>
               <ul className="space-y-3 text-lg sm:text-xl font-bold">
-                {socialLinks.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 hover:text-[#FF4B00] transition-colors group"
-                    >
-                      <span>{link.label}</span>
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </a>
+                <li>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#FF4B00] transition-colors break-all text-base sm:text-lg">
+                    {CONTACT_EMAIL}
+                  </a>
+                </li>
+                {socials.map((s) => (
+                  <li key={s.label}>
+                    {s.href ? (
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 hover:text-[#FF4B00] transition-colors group"
+                      >
+                        <span>{s.label}</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </a>
+                    ) : (
+                      // Social URL not set yet (src/lib/content.ts → SOCIAL)
+                      <span className="text-[#FFFDF2]/40">{s.label}</span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -105,33 +97,20 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
           </div>
         </div>
 
-        {/* Middle: tagline + hubs */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 mt-12 sm:mt-16">
-          <p className="lg:col-span-7 text-lg sm:text-xl font-bold leading-snug">
-            A hook for curious brands.
-            <br />
-            <span className="text-[#FFFDF2]/60">Brand, performance &amp; retention on one line.</span>
+        {/* Legal line */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mt-14 sm:mt-16 pt-6 border-t border-[#FFFDF2]/10 text-xs font-bold text-[#FFFDF2]/60">
+          <p className="max-w-3xl leading-relaxed">
+            © 2026 NorthGauge · Est. 2022 · Mumbai · Working with D2C brands in India, the US, UK, Middle East and
+            Australia.{" "}
+            <R india="Fees exclude 18% GST." global="International fees are billed in USD." />
           </p>
-          <p className="lg:col-span-5 text-lg sm:text-xl font-bold leading-snug">
-            London · New York
-            <br />
-            Dubai · Sydney
-          </p>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-10 text-xs font-bold text-[#FFFDF2]/60">
-          <span>© 2026 Northgauge Agency Ltd.</span>
-          <div className="flex items-center gap-5">
-            <button
-              onClick={onOpenPrivacy}
-              className="hover:text-[#FF4B00] transition-colors cursor-pointer"
-            >
+          <div className="flex items-center gap-5 shrink-0">
+            <button onClick={onOpenPrivacy} className="hover:text-[#FF4B00] transition-colors cursor-pointer">
               Privacy policy
             </button>
             <span className="text-[#FFFDF2]/40">·</span>
             <button
-              onClick={scrollToTop}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="inline-flex items-center gap-1.5 hover:text-[#FF4B00] transition-colors cursor-pointer"
             >
               <span>Back to top</span>
@@ -145,7 +124,7 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
       <div className="relative z-10 px-4 sm:px-6 mt-4 -mb-[6%]">
         <div
           role="img"
-          aria-label="Northgauge"
+          aria-label="NorthGauge"
           className="w-full aspect-[1440/365] bg-[#FCF5CD]"
           style={{
             maskImage: "url(/northgauge-wordmark.svg)",

@@ -7,9 +7,15 @@ export default function ScrollHookMarker() {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
+  const [markers, setMarkers] = useState<string[]>([]);
 
   useEffect(() => {
+    let markersSet = false;
     const handleScroll = () => {
+      if (!markersSet) {
+        markersSet = true;
+        setMarkers(Array.from(document.querySelectorAll<HTMLElement>("main section[data-marker]")).map((el) => el.id));
+      }
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight > 0) {
@@ -18,16 +24,12 @@ export default function ScrollHookMarker() {
         setVisible(scrollY > 160);
       }
 
-      // Check current active section
-      const sections = ["top", "services", "hook", "reel", "keep", "leak-finder", "work", "brands", "why-us", "faq", "audit"];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 250 && rect.bottom >= 250) {
-            setActiveSection(id);
-            break;
-          }
+      // Active section: the anchored section crossing the 250px line
+      for (const el of Array.from(document.querySelectorAll<HTMLElement>("main section[data-marker]"))) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 250 && rect.bottom >= 250) {
+          setActiveSection(el.id);
+          break;
         }
       }
     };
@@ -49,7 +51,7 @@ export default function ScrollHookMarker() {
         <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-[#1F1F1F]/15" />
 
         {/* Section anchor nodes */}
-        {["top", "services", "leak-finder", "work", "why-us", "audit"].map((sec) => (
+        {markers.map((sec) => (
           <div
             key={sec}
             className={`w-1.5 h-1.5 rounded-full transition-colors z-10 ${

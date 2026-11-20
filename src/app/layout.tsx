@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
+import { REGION_SCRIPT } from "@/lib/region-script";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
+  title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
@@ -58,9 +59,10 @@ const organizationJsonLd = {
   image: `${SITE_URL}/opengraph-image`,
   description: SITE_DESCRIPTION,
   email: CONTACT_EMAIL,
-  slogan: "A hook for curious brands.",
-  areaServed: ["United Kingdom", "United States", "United Arab Emirates", "Australia"],
-  knowsAbout: ["Brand strategy", "Performance marketing", "Retention marketing", "Lifecycle marketing"],
+  foundingDate: "2022",
+  address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressCountry: "IN" },
+  areaServed: ["India", "United States", "United Kingdom", "United Arab Emirates", "Saudi Arabia", "Australia"],
+  knowsAbout: ["Performance marketing", "Media buying", "Meta ads", "Creative strategy", "Retention marketing", "D2C growth"],
 };
 
 export default function RootLayout({
@@ -72,8 +74,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jakarta.variable} ${bricolage.variable} ${instrumentSerif.variable} scroll-smooth`}
+      className={`global ${jakarta.variable} ${bricolage.variable} ${instrumentSerif.variable} scroll-smooth`}
     >
+      <head>
+        {/* Region before first paint: Global $ by default, India ₹ via #india or the saved choice. */}
+        <script dangerouslySetInnerHTML={{ __html: REGION_SCRIPT }} />
+      </head>
       <body className="min-h-screen bg-[#FFFDF2] text-[#1F1F1F] font-sans antialiased selection:bg-[#FF4B00] selection:text-white">
         <script
           // Runs before paint so returning visitors never see the splash flash.

@@ -1,12 +1,12 @@
 import { ImageResponse } from "next/og";
 import { brandSvgDataUri, loadFont } from "@/lib/brand-svg";
 
-export const alt = "Northgauge — A hook for curious brands.";
+export const alt = "NorthGauge: Your growth isn't stuck. It's leaking.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
-  const subline = "Hook. Reel. Keep. — Brand, performance & retention, one team.";
+  const subline = "Ads, creative and retention for D2C brands, run as one P&L. Backed and funded by ISB.";
   const [wordmark, hook, display, sans] = await Promise.all([
     brandSvgDataUri("northgauge-wordmark.svg", "#1F1F1F"),
     brandSvgDataUri("northgauge-hook.svg", "#FF4B00"),
@@ -37,7 +37,7 @@ export default async function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 92,
+              fontSize: 84,
               fontFamily: "Bricolage",
               fontWeight: 800,
               lineHeight: 0.92,
@@ -48,8 +48,9 @@ export default async function OpengraphImage() {
               flexDirection: "column",
             }}
           >
-            <span>A hook for</span>
-            <span>curious brands.</span>
+            <span>Your growth</span>
+            <span>isn&apos;t stuck.</span>
+            <span style={{ color: "#1F1F1F" }}>It&apos;s leaking.</span>
           </div>
           <div style={{ fontSize: 30, fontFamily: "Jakarta", color: "#1F1F1F", marginTop: 28, opacity: 0.8 }}>
             {subline}

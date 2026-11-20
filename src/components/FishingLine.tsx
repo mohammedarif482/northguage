@@ -23,7 +23,7 @@ interface FishingLineProps {
  * Scroll scrubs the text along the path and gently draws the wave.
  */
 export default function FishingLine({
-  words = ["Hook", "Reel", "Keep", "A hook for curious brands"],
+  words = ["Measure", "Make", "Scale", "Keep", "One team. One P&L."],
   band = "#FF4B00",
   ink = "#FFFDF2",
   reverse = false,

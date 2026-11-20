@@ -2,23 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { track } from "@/lib/track";
 
 /**
- * Thumb-reach action bar for phones. Appears once the hero is scrolled past,
- * and steps aside while the audit form or footer is on screen.
+ * Sticky phone button. Appears after 700px of scroll and steps aside
+ * while the booking section or footer is on screen.
  */
 export default function MobileCTA() {
-  const [pastHero, setPastHero] = useState(false);
+  const [past, setPast] = useState(false);
   const [nearEnd, setNearEnd] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.8);
+    const onScroll = () => setPast(window.scrollY > 700);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const targets = ["audit", "leak-finder"]
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => !!el);
+    const targets: Element[] = [];
+    const audit = document.getElementById("audit");
+    if (audit) targets.push(audit);
     const footer = document.querySelector("footer");
     if (footer) targets.push(footer);
     const visible = new Set<Element>();
@@ -27,7 +28,7 @@ export default function MobileCTA() {
         entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
         setNearEnd(visible.size > 0);
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     targets.forEach((t) => io.observe(t));
 
@@ -37,7 +38,7 @@ export default function MobileCTA() {
     };
   }, []);
 
-  const show = pastHero && !nearEnd;
+  const show = past && !nearEnd;
 
   return (
     <div
@@ -47,22 +48,17 @@ export default function MobileCTA() {
       }`}
       style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)" }}
     >
-      <div className="flex items-center gap-2 p-1.5 rounded-full bg-[#1F1F1F] shadow-[0_16px_40px_-12px_rgba(31,31,31,0.6)]">
-        <a
-          href="#leak-finder"
-          tabIndex={show ? 0 : -1}
-          className="flex-1 text-center py-3 rounded-full text-[#FFFDF2] text-xs font-bold uppercase tracking-wider"
-        >
-          30-sec leak test
-        </a>
-        <a
-          href="#audit"
-          tabIndex={show ? 0 : -1}
-          className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#FF4B00] text-white text-xs font-bold uppercase tracking-wider"
-        >
-          Free audit <ArrowUpRight className="w-4 h-4" />
-        </a>
-      </div>
+      <a
+        href="#audit"
+        tabIndex={show ? 0 : -1}
+        onClick={() => track("cta_click", { where: "mobile_sticky" })}
+        className="flex items-center justify-between pl-6 pr-2 py-2 rounded-full bg-[#1F1F1F] text-[#FFFDF2] text-xs font-bold uppercase tracking-wider shadow-[0_16px_40px_-12px_rgba(31,31,31,0.6)]"
+      >
+        <span>See if you&rsquo;re a fit</span>
+        <span className="w-10 h-10 rounded-full bg-[#FF4B00] flex items-center justify-center">
+          <ArrowUpRight className="w-4 h-4" />
+        </span>
+      </a>
     </div>
   );
 }

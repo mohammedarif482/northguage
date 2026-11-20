@@ -234,3 +234,64 @@ html:not([data-motion="reduce"]) [data-hero-anim] {
 [data-splash-anim] {
   opacity: 0;
 }
+
+/* ---------- v2: region switch ----------
+ * <html class="global"> = Global $ (default). No class = India ₹.
+ * Both variants are rendered; CSS shows one. Set before paint by the head script. */
+html.global .r-inr,
+html:not(.global) .r-usd {
+  display: none !important;
+}
+
+/* Content slot still waiting for real data (see src/lib/content.ts) */
+.ng-slot {
+  border-bottom: 1.5px dashed currentColor;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+/* Horizontal logo rows */
+.animate-marquee-rev {
+  display: flex;
+  width: max-content;
+  animation: marquee-steady 42s linear infinite reverse;
+}
+.animate-marquee-slower {
+  display: flex;
+  width: max-content;
+  animation: marquee-steady 54s linear infinite;
+}
+.ng-logo-row:hover > div {
+  animation-play-state: paused;
+}
+
+/* Hook OS loop: tiles orbit the ring on an offset-path (static ring fallback where unsupported) */
+@keyframes ng-orbit {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+@supports (offset-path: circle(50%)) {
+  .ng-orbit-tile {
+    offset-path: circle(var(--orbit-r, 42%) at 50% 50%);
+    offset-rotate: 0deg;
+    animation: ng-orbit 16s linear infinite;
+  }
+}
+@supports not (offset-path: circle(50%)) {
+  .ng-orbit-tile {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-rev,
+  .animate-marquee-slower,
+  .animate-marquee-slow,
+  .ng-orbit-tile {
+    animation: none !important;
+  }
+}

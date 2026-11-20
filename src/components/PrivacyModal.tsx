@@ -44,13 +44,13 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
 
         <div className="space-y-4 text-xs sm:text-sm text-[#1F1F1F]/80 leading-relaxed">
           <p>
-            <strong>1. Scope:</strong> Northgauge Agency Ltd provides brand, performance, and retention services across the UK, US, UAE, and Australia.
+            <strong>1. Scope:</strong> NorthGauge provides performance, creative and retention services to D2C brands in India, the US, UK, Middle East and Australia.
           </p>
           <p>
-            <strong>2. Data Collection:</strong> Information submitted via our growth audit form (name, email, URL, and marketing budget) is used exclusively to prepare customized audit recommendations.
+            <strong>2. Data Collection:</strong> Details you give when you book a fit check (name, email, website and your answers to the booking questions) are used only to prepare your audit and reply to you.
           </p>
           <p>
-            <strong>3. Delivery &amp; Storage:</strong> Audit requests are delivered to our inbox by our email provider (Resend) and are not used for marketing lists.
+            <strong>3. Delivery &amp; Storage:</strong> Bookings are handled by our scheduling provider (Cal.com) and are not used for marketing lists.
           </p>
           <p>
             <strong>4. Analytics &amp; Cookies:</strong> We set no advertising cookies. If you accept analytics, we load cookieless Plausible Analytics to count page visits. Your choice is stored in your browser&apos;s local storage.
