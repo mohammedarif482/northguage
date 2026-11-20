@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
+import SpinBadge from "./SpinBadge";
 
 interface HeroProps {
   isSplashDone?: boolean;
@@ -11,23 +12,29 @@ interface HeroProps {
 export default function Hero({ isSplashDone = true }: HeroProps) {
   const line1Ref = useRef<HTMLSpanElement>(null);
   const line2Ref = useRef<HTMLSpanElement>(null);
+  const line3Ref = useRef<HTMLSpanElement>(null);
   const pill1Ref = useRef<HTMLAnchorElement>(null);
   const pill2Ref = useRef<HTMLAnchorElement>(null);
   const pill3Ref = useRef<HTMLAnchorElement>(null);
   const loopLeftRef = useRef<HTMLDivElement>(null);
   const loopRightRef = useRef<HTMLDivElement>(null);
+  const hookRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isSplashDone) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const line1 = line1Ref.current;
     const line2 = line2Ref.current;
+    const line3 = line3Ref.current;
     const pill1 = pill1Ref.current;
     const pill2 = pill2Ref.current;
     const pill3 = pill3Ref.current;
     const loopLeft = loopLeftRef.current;
     const loopRight = loopRightRef.current;
+    const hook = hookRef.current;
     const bottomContent = bottomContentRef.current;
 
     const pills = [
@@ -37,8 +44,9 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
     ];
 
     // Initial states before reveal
-    if (line1 && line2) {
-      gsap.set([line1, line2], { yPercent: 110, opacity: 0 });
+    const lines = [line1, line2, line3].filter(Boolean);
+    if (lines.length) {
+      gsap.set(lines, { yPercent: 110, opacity: 0 });
     }
     pills.forEach(({ el, baseRot }) => {
       if (el) {
@@ -50,6 +58,9 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
         });
       }
     });
+    if (hook) {
+      gsap.set(hook, { opacity: 0, yPercent: 12 });
+    }
     if (loopLeft && loopRight) {
       gsap.set([loopLeft, loopRight], { opacity: 0, scale: 0.9 });
     }
@@ -57,20 +68,26 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       gsap.set(bottomContent, { opacity: 0, y: 25 });
     }
 
-    // Master Hero Entrance Timeline
-    const masterTl = gsap.timeline({
-      delay: 0.1,
-    });
+    const headerRow = document.querySelector<HTMLElement>("[data-header-row]");
+    const badge = badgeRef.current;
+    if (headerRow) gsap.set(headerRow, { opacity: 0, y: -24 });
+    if (badge) gsap.set(badge, { opacity: 0, scale: 0.4, rotation: -60 });
+
+    // Master Hero Entrance Timeline: starts while the splash curtain is still lifting.
+    const masterTl = gsap.timeline();
 
     // 1. Headline Lines slide up from mask
-    if (line1 && line2) {
-      masterTl.to([line1, line2], {
+    if (lines.length) {
+      masterTl.to(lines, {
         yPercent: 0,
         opacity: 1,
-        duration: 0.85,
-        ease: "power3.out",
-        stagger: 0.16,
+        duration: 0.9,
+        ease: "power4.out",
+        stagger: 0.12,
       });
+    }
+    if (headerRow) {
+      masterTl.to(headerRow, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.25);
     }
 
     // 2. The 3 Service Sticker Pills pop in consecutively with spring bounce
@@ -102,6 +119,18 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
         },
         "-=0.5"
       );
+    }
+
+    if (hook) {
+      masterTl.to(
+        hook,
+        { opacity: 1, yPercent: 0, duration: 1, ease: "power3.out" },
+        "-=0.7"
+      );
+    }
+
+    if (badge) {
+      masterTl.to(badge, { opacity: 1, scale: 1, rotation: -6, duration: 0.9, ease: "back.out(1.8)" }, "-=0.5");
     }
 
     if (bottomContent) {
@@ -201,7 +230,7 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
   return (
     <section
       id="top"
-      className="relative min-h-screen pt-20 pb-8 sm:pt-24 sm:pb-10 flex flex-col justify-center bg-[#FCF5CD] hairline-b overflow-hidden select-none"
+      className="relative min-h-screen pt-28 sm:pt-32 pb-8 sm:pb-10 flex flex-col justify-between bg-[#FCF5CD] hairline-b overflow-hidden select-none"
     >
       {/* ============================================================== */}
       {/* Two26-Style Giant Orange Looping Line Art Left & Right */}
@@ -209,7 +238,8 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       {/* Left Orange Loop */}
       <div
         ref={loopLeftRef}
-        className="absolute -left-10 sm:left-0 top-1/2 -translate-y-1/2 w-36 sm:w-52 lg:w-60 h-[380px] sm:h-[480px] pointer-events-none z-0 opacity-80"
+        data-hero-anim
+        className="absolute -left-16 sm:-left-28 lg:-left-32 -top-[2%] sm:top-[24%] w-36 sm:w-[22rem] lg:w-[26rem] h-[260px] sm:h-[940px] lg:h-[1080px] pointer-events-none z-0"
       >
         <svg
           viewBox="0 0 229 599"
@@ -226,10 +256,42 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
         </svg>
       </div>
 
+      {/* Giant faint hook, cropped by the bottom edge of the hero */}
+      <div
+        ref={hookRef}
+        data-hero-anim
+        aria-hidden="true"
+        className="absolute bottom-16 sm:bottom-24 lg:bottom-32 inset-x-0 mx-auto w-[180px] sm:w-[260px] lg:w-[320px] aspect-[203.66/357.03] rotate-[-8deg] pointer-events-none z-0"
+      >
+        <div
+          className="w-full h-full bg-[#FF4B00]/10"
+          style={{
+            maskImage: "url(/northgauge-hook.svg)",
+            WebkitMaskImage: "url(/northgauge-hook.svg)",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+          }}
+        />
+      </div>
+
+      {/* Rotating trigger into the Leak Finder */}
+      <div ref={badgeRef} data-hero-anim className="hidden lg:block absolute left-[9%] bottom-[12%] z-20">
+        <SpinBadge
+          href="#leak-finder"
+          text="30-sec leak test ✦ find your leak ✦ "
+          ariaLabel="Take the 30-second leak test"
+        />
+      </div>
+
       {/* Right Orange Loop */}
       <div
         ref={loopRightRef}
-        className="absolute -right-12 sm:right-0 top-1/2 -translate-y-1/2 w-44 sm:w-64 lg:w-72 h-[320px] sm:h-[420px] pointer-events-none z-0 opacity-80"
+        data-hero-anim
+        className="absolute -right-24 sm:-right-48 lg:-right-56 top-auto bottom-[-4%] sm:bottom-auto sm:top-[22%] w-52 sm:w-[32rem] lg:w-[38rem] h-[280px] sm:h-[700px] lg:h-[820px] pointer-events-none z-0"
       >
         <svg
           viewBox="0 0 354 487"
@@ -249,66 +311,72 @@ export default function Hero({ isSplashDone = true }: HeroProps) {
       {/* ============================================================== */}
       {/* Main Hero Container */}
       {/* ============================================================== */}
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 w-full relative z-10 text-center flex flex-col items-center">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10 my-auto text-center flex flex-col items-center">
         {/* Giant Two26-Style Display Typography */}
-        <div className="relative inline-block w-full max-w-4xl my-2 sm:my-4">
+        <div className="relative inline-block max-w-full my-2 sm:my-3">
           {/* Main Giant Headline with overflow masks for slide-up reveal */}
-          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.8rem] xl:text-[7.6rem] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.9] drop-shadow-xs">
+          <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[length:min(9.5rem,14vh)] xl:text-[length:min(10.5rem,15vh)] tracking-tight sm:tracking-tighter uppercase text-[#FF4B00] leading-[0.88] drop-shadow-xs">
             <span className="block overflow-hidden pb-1">
-              <span ref={line1Ref} className="block will-change-transform">
+              <span ref={line1Ref} data-hero-anim className="block will-change-transform">
                 A HOOK FOR
               </span>
             </span>
-            <span className="block overflow-hidden mt-1 pb-1">
-              <span
-                ref={line2Ref}
-                className="block will-change-transform whitespace-nowrap"
-              >
-                CURIOUS BRANDS
+            <span className="block overflow-hidden mt-1 sm:mt-2 pb-1">
+              <span ref={line2Ref} data-hero-anim className="block will-change-transform">
+                CURIOUS
+              </span>
+            </span>
+            <span className="block overflow-hidden mt-1 sm:mt-2 pb-1">
+              <span ref={line3Ref} data-hero-anim className="block will-change-transform">
+                BRANDS
               </span>
             </span>
           </h1>
 
           {/* ============================================================== */}
-          {/* Exactly 3 Service Sticker Pills Overlaid (Solid Dark Charcoal) */}
+          {/* Exactly 3 Service Sticker Pills Overlaid (Two26 Style with GSAP) */}
           {/* ============================================================== */}
-          {/* Pill 1: Creative Brand Building */}
+          {/* Pill 1: Creative-Led Brand Building (over upper line) */}
           <a
             ref={pill1Ref}
+        data-hero-anim
             href="#hook"
-            className="hero-sticker-pill -top-2 sm:top-0 left-[14%] sm:left-[20%]"
+            className="hero-sticker-pill static sm:absolute mx-1 mt-3 sm:mx-0 sm:mt-0 text-[11.5px] px-3.5 py-2 sm:text-[13px] sm:px-5 sm:py-[9px] -top-4 sm:-top-5 right-[-2%] sm:right-[-6%]"
           >
             <span>Creative brand building</span>
           </a>
 
-          {/* Pill 2: Performance Marketing */}
+          {/* Pill 2: Performance Marketing (over CURIOUS) */}
           <a
             ref={pill2Ref}
+        data-hero-anim
             href="#reel"
-            className="hero-sticker-pill top-[46%] left-[2%] sm:left-[6%]"
+            className="hero-sticker-pill static sm:absolute mx-1 mt-3 sm:mx-0 sm:mt-0 text-[11.5px] px-3.5 py-2 sm:text-[13px] sm:px-5 sm:py-[9px] top-[46%] sm:top-[47%] left-[-2%] sm:left-[-8%]"
           >
             <span>Performance marketing</span>
           </a>
 
-          {/* Pill 3: Retention Marketing */}
+          {/* Pill 3: Retention Marketing (over BRANDS) */}
           <a
             ref={pill3Ref}
+        data-hero-anim
             href="#keep"
-            className="hero-sticker-pill -bottom-2 sm:bottom-0 right-[2%] sm:right-[8%]"
+            className="hero-sticker-pill static sm:absolute mx-1 mt-3 sm:mx-0 sm:mt-0 text-[11.5px] px-3.5 py-2 sm:text-[13px] sm:px-5 sm:py-[9px] bottom-[2%] sm:bottom-[6%] right-[0%] sm:right-[-4%]"
           >
             <span>Retention marketing</span>
           </a>
         </div>
 
         {/* ============================================================== */}
-        {/* Subline & Action Buttons (Compact Viewport Fit) */}
+        {/* Subline & Action Buttons */}
         {/* ============================================================== */}
         <div
           ref={bottomContentRef}
-          className="w-full max-w-2xl mt-4 sm:mt-6 flex flex-col items-center"
+        data-hero-anim
+          className="w-full max-w-2xl mt-5 sm:mt-6 mb-2 flex flex-col items-center"
         >
           {/* Subline */}
-          <p className="text-sm sm:text-base lg:text-lg text-[#1F1F1F]/80 font-medium leading-relaxed max-w-lg text-center mb-5 sm:mb-6">
+          <p className="text-base sm:text-lg text-[#1F1F1F]/80 font-medium leading-relaxed max-w-xl text-center mb-6">
             We build brands people notice, ads that pay back, and customers who
             come back. One team, three moves:{" "}
             <span className="font-extrabold text-[#1F1F1F]">Hook. Reel. Keep.</span>

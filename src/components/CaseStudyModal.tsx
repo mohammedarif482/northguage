@@ -1,6 +1,7 @@
 "use client";
 
 import { X, ArrowUpRight } from "lucide-react";
+import { useModal } from "@/lib/useModal";
 
 export interface CaseStudy {
   id: string;
@@ -32,6 +33,7 @@ interface CaseStudyModalProps {
 }
 
 export default function CaseStudyModal({ caseStudy, onClose }: CaseStudyModalProps) {
+  const dialogRef = useModal<HTMLDivElement>(!!caseStudy, onClose);
   if (!caseStudy) return null;
 
   return (
@@ -40,14 +42,20 @@ export default function CaseStudyModal({ caseStudy, onClose }: CaseStudyModalPro
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-[#FFFDF2] rounded-2xl p-8 sm:p-12 shadow-2xl border border-[#1F1F1F]/20 my-8 max-h-[90vh] overflow-y-auto"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="case-study-title"
+        tabIndex={-1}
+        data-lenis-prevent
+        className="outline-hidden relative w-full max-w-2xl bg-[#FFFDF2] rounded-2xl p-8 sm:p-12 shadow-2xl border border-[#1F1F1F]/20 my-8 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-6 right-6 p-2 rounded-full hover:bg-stone-200 text-[#1F1F1F] transition-colors"
-          aria-label="Close"
+          aria-label="Close case study"
         >
           <X className="w-5 h-5" />
         </button>
@@ -65,7 +73,7 @@ export default function CaseStudyModal({ caseStudy, onClose }: CaseStudyModalPro
         </div>
 
         {/* Result Headline */}
-        <h3 className="text-3xl sm:text-4xl font-extrabold text-[#1F1F1F] tracking-tight mb-2">
+        <h3 id="case-study-title" className="text-3xl sm:text-4xl font-extrabold text-[#1F1F1F] tracking-tight mb-2">
           {caseStudy.metric} in {caseStudy.timeframe}
         </h3>
         <p className="text-base text-[#1F1F1F]/75 mb-8">

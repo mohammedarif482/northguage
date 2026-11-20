@@ -4,81 +4,100 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 interface SplashScreenProps {
+  /** Fired as the curtain starts lifting, so the hero animates in underneath it (not after). */
   onComplete: () => void;
 }
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
   const hookRef = useRef<HTMLDivElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
+  const edgeRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(true);
+  const revealRef = useRef(onComplete);
+
+  useEffect(() => {
+    revealRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     const container = containerRef.current;
+    const line = lineRef.current;
     const hook = hookRef.current;
     const wordmark = wordmarkRef.current;
+    const edge = edgeRef.current;
+    if (!container || !line || !hook || !wordmark || !edge) return;
 
-    if (!container || !hook || !wordmark) return;
+    // Returning visitor this session, or reduced motion: skip straight to the page.
+    // The splash is already hidden via CSS ([data-splash="skip"]).
+    if (document.documentElement.dataset.splash === "skip") {
+      revealRef.current();
+      return;
+    }
+    try {
+      sessionStorage.setItem("ng_splash_seen", "1");
+    } catch {}
 
-    // Prevent background scrolling while splash is active
     document.body.style.overflow = "hidden";
 
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = "";
         setMounted(false);
-        onComplete();
       },
     });
 
-    // 1. Initial states
-    gsap.set(hook, { scale: 0.7, opacity: 0, rotation: -12 });
-    gsap.set(wordmark, { opacity: 0, y: 15 });
+    gsap.set(hook, { y: "-70vh", rotation: -16, transformOrigin: "50% 0%", opacity: 1 });
+    gsap.set(line, { scaleY: 0, transformOrigin: "50% 0%" });
+    gsap.set(wordmark, { clipPath: "inset(0 100% 0 0)", y: 10, opacity: 1 });
 
-    // 2. Hook emblem bounce & swing in
-    tl.to(hook, {
-      scale: 1,
-      opacity: 1,
-      rotation: 0,
-      duration: 0.65,
-      ease: "back.out(2)",
-    })
-      // 3. Wordmark reveal
-      .to(
-        wordmark,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      )
-      // 4. Brief hold
-      .to({}, { duration: 0.45 })
-      // 5. Smooth curtain lift (slide up to reveal hero)
-      .to(container, {
-        yPercent: -100,
-        duration: 0.85,
-        ease: "power4.inOut",
-      });
+    tl
+      // 1. The line drops and the hook swings in on it.
+      .to(line, { scaleY: 1, duration: 0.55, ease: "power2.out" }, 0)
+      .to(hook, { y: 0, duration: 0.85, ease: "back.out(1.5)" }, 0.05)
+      .to(hook, { rotation: 0, duration: 1.1, ease: "elastic.out(1, 0.35)" }, 0.3)
+      // 2. Wordmark wipes in left → right.
+      .to(wordmark, { clipPath: "inset(0 0% 0 0)", y: 0, duration: 0.6, ease: "power3.out" }, 0.55)
+      // 3. A beat, then the tug.
+      .to(hook, { y: 14, duration: 0.18, ease: "power2.out" }, 1.2)
+      // 4. Reel in: hook flies up, wordmark follows, the curtain is dragged up with a curved edge.
+      .addLabel("reel", 1.38)
+      .to(hook, { y: "-80vh", duration: 0.55, ease: "power3.in" }, "reel")
+      .to(wordmark, { y: -40, opacity: 0, duration: 0.35, ease: "power2.in" }, "reel+=0.05")
+      .to(container, { yPercent: -100, duration: 0.95, ease: "power4.inOut" }, "reel+=0.15")
+      .fromTo(edge, { scaleY: 1 }, { scaleY: 0, duration: 0.95, ease: "power3.in" }, "reel+=0.15")
+      // Hero starts rising while the curtain is still passing.
+      .call(() => revealRef.current(), [], "reel+=0.35");
 
     return () => {
       document.body.style.overflow = "";
       tl.kill();
     };
-  }, [onComplete]);
+  }, []);
 
   if (!mounted) return null;
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#FF4B00] text-[#FCF5CD] select-none"
+      className="ng-splash fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#FF4B00] text-[#FCF5CD] select-none"
     >
-      <div className="flex flex-col items-center max-w-sm px-6">
-        {/* Animated Northgauge Hook Emblem */}
-        <div ref={hookRef} className="relative w-24 h-32 mb-6 text-[#FCF5CD]">
+      {/* Curved trailing edge: makes the lift feel like fabric being pulled up from the middle */}
+      <div
+        ref={edgeRef}
+        aria-hidden="true"
+        className="absolute top-full -left-[10%] -right-[10%] h-[16vh] bg-[#FF4B00] rounded-b-[50%] origin-top"
+      />
+
+      <div className="flex flex-col items-center px-6">
+        {/* Animated Northgauge Hook Emblem, hanging on its line */}
+        <div ref={hookRef} data-splash-anim className="relative w-28 h-36 sm:w-36 sm:h-48 mb-8 text-[#FCF5CD]">
+          <div
+            ref={lineRef}
+            aria-hidden="true"
+            className="absolute bottom-[calc(100%-6px)] left-[56%] w-[3px] h-[100vh] bg-[#FCF5CD] rounded-full"
+          />
           <svg
             viewBox="647.80 4.36 203.66 357.03"
             className="w-full h-full fill-current"
@@ -93,7 +112,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         </div>
 
         {/* Wordmark Logo */}
-        <div ref={wordmarkRef} className="relative w-56 h-12 text-[#FCF5CD]">
+        <div ref={wordmarkRef} data-splash-anim className="relative w-[80vw] max-w-[560px] aspect-[1440/365] text-[#FCF5CD]">
           <svg
             viewBox="0 0 1440 365"
             className="w-full h-full fill-current"

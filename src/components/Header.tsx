@@ -1,15 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-5 sm:py-6 px-6 sm:px-10 transition-all duration-200">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 px-6 sm:px-10 transition-all duration-300 ${
+        scrolled
+          ? "py-2.5 sm:py-3 bg-[#FCF5CD]/85 backdrop-blur-md border-b border-[#1F1F1F]/10 shadow-[0_4px_20px_rgba(31,31,31,0.06)]"
+          : "py-5 sm:py-6 bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div data-hero-anim data-header-row className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: White rounded pill navigation (as in Two26 screenshot) */}
         <div className="hidden sm:flex items-center gap-2">
           <a
@@ -25,10 +41,11 @@ export default function Header() {
             Work
           </a>
           <a
-            href="#why-us"
-            className="hidden md:inline-flex px-5 py-2.5 rounded-full bg-white text-[#1F1F1F] hover:text-[#FF4B00] text-xs font-bold uppercase tracking-wider shadow-xs border border-[#1F1F1F]/10 hover:border-[#1F1F1F]/30 transition-all duration-150"
+            href="#leak-finder"
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#1F1F1F] hover:text-[#FF4B00] text-xs font-bold uppercase tracking-wider shadow-xs border border-[#1F1F1F]/10 hover:border-[#1F1F1F]/30 transition-all duration-150"
           >
-            Why Us
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" aria-hidden="true" />
+            Leak test
           </a>
         </div>
 
@@ -39,7 +56,7 @@ export default function Header() {
             className="flex items-center group focus:outline-hidden"
             aria-label="Northgauge Home"
           >
-            <div className="relative h-8 w-36 sm:h-9 sm:w-44 transition-transform group-hover:scale-105 duration-200">
+            <div className={`relative transition-all ${scrolled ? "h-9 w-36 sm:h-11 sm:w-44" : "h-11 w-44 sm:h-14 sm:w-56"} group-hover:scale-105 duration-200`}>
               <Image
                 src="/northgauge-wordmark.svg"
                 alt="Northgauge"
@@ -55,7 +72,7 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex flex-col text-right text-[11px] font-bold uppercase tracking-wider text-[#1F1F1F]/60 leading-tight">
             <span>London · NY · Dubai · Sydney</span>
-            <span className="font-mono text-[#1F1F1F]/40">Mon–Fri 09:00–18:00</span>
+            <span className="font-mono text-[#1F1F1F]/65">Mon–Fri 09:00–18:00</span>
           </div>
 
           <a
@@ -73,42 +90,19 @@ export default function Header() {
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="sm:hidden p-2 rounded-full bg-white border border-[#1F1F1F]/15 text-[#1F1F1F]"
-            aria-label="Toggle menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#FFFDF2] border border-[#1F1F1F]/15 px-6 py-6 shadow-2xl mt-3 rounded-2xl animate-in slide-in-from-top duration-200">
-          <nav className="flex flex-col gap-3">
-            {[
-              { label: "Services", href: "#services" },
-              { label: "Work", href: "#work" },
-              { label: "Why Northgauge", href: "#why-us" },
-              { label: "FAQ", href: "#faq" },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-bold uppercase tracking-wider text-[#1F1F1F] py-2 border-b border-[#1F1F1F]/5"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#audit"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 w-full text-center py-3.5 rounded-full bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest shadow-md"
-            >
-              Book a call
-            </a>
-          </nav>
-        </div>
-      )}
     </header>
+
+      {/* Rendered outside <header>: its backdrop-filter would otherwise trap a fixed overlay. */}
+      <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+    </>
   );
 }

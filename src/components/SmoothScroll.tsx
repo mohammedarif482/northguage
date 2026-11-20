@@ -9,6 +9,9 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    // Respect reduced-motion: fall back to native scrolling.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -46,8 +49,16 @@ export default function SmoothScroll({
 
     document.addEventListener("click", handleAnchorClick);
 
+    // Modals ask us to pause/resume smooth scrolling.
+    const lock = () => lenis.stop();
+    const unlock = () => lenis.start();
+    window.addEventListener("ng:scroll-lock", lock);
+    window.addEventListener("ng:scroll-unlock", unlock);
+
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      window.removeEventListener("ng:scroll-lock", lock);
+      window.removeEventListener("ng:scroll-unlock", unlock);
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();
     };

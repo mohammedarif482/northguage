@@ -1,11 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CaseStudyModal, { CaseStudy } from "./CaseStudyModal";
+import Placeholder from "./Placeholder";
+import SwipeHint from "./SwipeHint";
 import { ArrowUpRight } from "lucide-react";
+import { getGsap, prefersReducedMotion } from "@/lib/motion";
+
+// Neutral cards: colour only appears on the move tags (Hook / Reel / Keep).
+const moveTag: Record<string, string> = {
+  Hook: "bg-[#FF4B00] text-[#FFFDF2]",
+  Reel: "bg-[#FFC83D] text-[#1F1F1F]",
+  Keep: "bg-[#B9A6FF] text-[#1F1F1F]",
+};
+
+const base = {
+  bg: "bg-[#FFFDF2] border border-[#1F1F1F]/10",
+  ink: "text-[#1F1F1F]",
+  muted: "text-[#1F1F1F]/70",
+  sticker: "bg-[#1F1F1F] text-[#FFFDF2] -rotate-3",
+};
+
+const looks = [
+  {
+    ...base,
+    span: "lg:col-span-7 lg:row-span-2",
+    tone: "charcoal" as const,
+    media: { label: "Campaign film", kind: "video" as const, aspect: "aspect-[16/9] lg:aspect-auto lg:flex-1 lg:min-h-[320px]" },
+  },
+  {
+    ...base,
+    span: "lg:col-span-5",
+    tone: "cream" as const,
+    media: { label: "UGC ad set", kind: "image" as const, aspect: "aspect-[16/9]" },
+  },
+  {
+    ...base,
+    span: "lg:col-span-5",
+    tone: "cream" as const,
+    media: { label: "Unboxing ritual", kind: "image" as const, aspect: "aspect-[16/9]" },
+  },
+];
 
 export default function FeaturedWork() {
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid || prefersReducedMotion()) return;
+    const { gsap } = getGsap();
+    const ctx = gsap.context(() => {
+      // Cards drop in tilted and land perfectly straight.
+      gsap.fromTo("[data-case]", {
+        y: 80,
+        rotation: (i) => [-3, 3, -2][i] ?? 0,
+        opacity: 0,
+      }, {
+        y: 0,
+        rotation: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: { trigger: grid, start: "top 80%" },
+      });
+      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { yPercent: -6 },
+          { yPercent: 6, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } }
+        );
+      });
+    }, grid);
+    return () => ctx.revert();
+  }, []);
 
   const cases: CaseStudy[] = [
     {
@@ -92,71 +161,85 @@ export default function FeaturedWork() {
   ];
 
   return (
-    <section id="work" className="py-24 sm:py-32 bg-[#FAF1D6]/40 hairline-b">
+    <section id="work" className="py-24 sm:py-32 bg-[#FCF5CD]">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 hairline-b mb-12 sm:mb-16 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
-              FEATURED WORK // 07
-            </div>
-            <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1F1F1F] tracking-tight">
-              Proof, not promises.
+            <p className="font-serif italic text-xl sm:text-2xl text-[#FF4B00] leading-none mb-4">Recent work</p>
+            <h2 className="font-display font-black uppercase text-5xl sm:text-7xl tracking-tight leading-[0.9] text-[#1F1F1F]">
+              Proof,
+              <br />
+              <span className="text-[#FF4B00]">not promises.</span>
             </h2>
           </div>
-          <p className="text-sm font-medium text-[#1F1F1F]/70 max-w-sm">
-            Click any case card to inspect the short case breakdown, the three
-            moves executed, and verified results.
+          <p className="text-base font-medium text-[#1F1F1F]/75 max-w-sm">
+            Every case shows the bottleneck, the three moves we made and what changed. Tap one to open it up.
           </p>
         </div>
 
-        {/* 3 Cases in a row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {cases.map((c) => (
-            <div
-              key={c.id}
-              onClick={() => setSelectedCase(c)}
-              className="group cursor-pointer p-8 sm:p-10 rounded-2xl bg-[#FFFDF2] border border-[#1F1F1F]/15 hover:border-[#FF4B00] transition-colors flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.16em] text-[#1F1F1F]/50 mb-6 pb-3 hairline-b">
-                  <span>{c.country}</span>
-                  <div className="flex gap-1.5 font-mono text-[11px] text-[#FF4B00]">
+        {/* Bento */}
+        <SwipeHint className="lg:hidden mb-3" />
+        <div ref={gridRef} className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 sm:-mx-10 sm:px-10 scroll-px-6 sm:scroll-px-10 gap-4 pb-6 lg:grid lg:grid-cols-12 lg:gap-6 lg:overflow-visible lg:mx-0 lg:px-0 lg:pb-0">
+          {cases.map((c, idx) => {
+            const look = looks[idx % looks.length];
+            return (
+              <div
+                key={c.id}
+                data-case
+                role="button"
+                tabIndex={0}
+                onClick={() => setSelectedCase(c)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedCase(c);
+                  }
+                }}
+                aria-haspopup="dialog"
+                aria-label={`${c.brand}: ${c.metric} in ${c.timeframe}. View case breakdown`}
+                className={`shrink-0 w-[86%] sm:w-[62%] lg:w-auto snap-start group relative cursor-pointer rounded-[28px] p-5 sm:p-8 flex flex-col gap-6 overflow-hidden outline-hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1F1F1F] transition-[translate] duration-300 hover:-translate-y-1 ${look.span} ${look.bg} ${look.ink}`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-bold uppercase tracking-[0.16em]">
+                  <span className={look.muted}>
+                    {c.brand} · {c.country}
+                  </span>
+                  <span className="flex gap-1.5">
                     {c.tags.map((t) => (
-                      <span key={t}>[{t}]</span>
+                      <span key={t} className={`px-2.5 py-1 rounded-full ${moveTag[t] ?? "bg-[#1F1F1F]/10"}`}>
+                        {t}
+                      </span>
                     ))}
+                  </span>
+                </div>
+
+                <div className={`relative rounded-2xl overflow-hidden ${look.media.aspect}`}>
+                  <div data-parallax className="absolute -inset-y-[8%] inset-x-0">
+                    <Placeholder label={look.media.label} kind={look.media.kind} tone={look.tone} className="w-full h-full rounded-2xl" />
                   </div>
+                  <span className={`ng-sticker absolute top-4 right-4 ${look.sticker}`}>{c.metric}</span>
                 </div>
 
-                <div className="text-4xl sm:text-5xl font-extrabold text-[#FF4B00] tracking-tight mb-2">
-                  {c.metric}
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mt-auto">
+                  <div className="max-w-md">
+                    <div className="font-display font-black uppercase text-4xl sm:text-5xl tracking-tight leading-none mb-2 text-[#FF4B00]">
+                      {c.metric}
+                    </div>
+                    <p className={`text-sm leading-relaxed line-clamp-2 sm:line-clamp-none ${look.muted}`}>
+                      In {c.timeframe}. {c.story}
+                    </p>
+                  </div>
+                  <span className="shrink-0 w-12 h-12 rounded-full bg-[#1F1F1F] text-[#FFFDF2] flex items-center justify-center transition-transform duration-300 group-hover:rotate-45 group-hover:scale-110">
+                    <ArrowUpRight className="w-5 h-5" />
+                  </span>
                 </div>
-                <div className="text-xs font-bold uppercase tracking-wider text-[#1F1F1F]/50 mb-6">
-                  In {c.timeframe}
-                </div>
-
-                <h3 className="text-xl font-extrabold text-[#1F1F1F] group-hover:text-[#FF4B00] transition-colors mb-3">
-                  {c.brand}
-                </h3>
-
-                <p className="text-sm text-[#1F1F1F]/75 leading-relaxed mb-8">
-                  {c.story}
-                </p>
               </div>
-
-              <div className="pt-4 hairline-t flex items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-[#1F1F1F] group-hover:text-[#FF4B00] transition-colors">
-                <span>View case breakdown</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      <CaseStudyModal
-        caseStudy={selectedCase}
-        onClose={() => setSelectedCase(null)}
-      />
+      <CaseStudyModal caseStudy={selectedCase} onClose={() => setSelectedCase(null)} />
     </section>
   );
 }

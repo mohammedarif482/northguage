@@ -38,11 +38,9 @@ export default function FAQ() {
       <div className="max-w-4xl mx-auto px-6 sm:px-10">
         {/* Section Header */}
         <div className="pb-10 hairline-b mb-12 sm:mb-16">
-          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#1F1F1F]/50 mb-3">
-            QUESTIONS // 10
-          </div>
-          <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1F1F1F] tracking-tight">
-            Frequently asked.
+          <p className="font-serif italic text-xl sm:text-2xl text-[#FF4B00] leading-none mb-3">Before you ask</p>
+          <h2 className="text-5xl sm:text-7xl text-[#1F1F1F] font-display font-black uppercase tracking-tight leading-[0.9]">
+            Fair <span className="text-[#FF4B00]">questions.</span>
           </h2>
         </div>
 

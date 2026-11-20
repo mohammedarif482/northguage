@@ -9,6 +9,9 @@
   --color-ng-stone: #B7B2A7;
   --color-ng-offwhite: #FFFDF2;
   --color-ng-peach: #FADCC4;
+  /* Move accents: Hook = orange, Reel = sun, Keep = lilac */
+  --color-ng-sun: #FFC83D;
+  --color-ng-lilac: #B9A6FF;
 
   --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-bricolage), "Syne", -apple-system, sans-serif;
@@ -79,8 +82,8 @@ body {
 }
 
 /* Hero sticker pills - solid dark charcoal like CTA (#1F1F1F) */
+@layer components {
 .hero-sticker-pill {
-  position: absolute;
   z-index: 20;
   display: inline-flex;
   align-items: center;
@@ -100,6 +103,7 @@ body {
   user-select: none;
   cursor: pointer;
   will-change: transform, box-shadow, background-color;
+}
 }
 
 /* Gentle Hook Sway */
@@ -152,4 +156,81 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Vertical logo marquee (Trusted Brands) */
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-marquee-up {
+  animation: marquee-vertical 28s linear infinite;
+}
+
+.animate-marquee-down {
+  animation: marquee-vertical 28s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-up,
+  .animate-marquee-down {
+    animation: none;
+  }
+}
+
+/* Splash is skipped for returning visitors / reduced motion (flag set pre-paint in layout) */
+[data-splash="skip"] .ng-splash {
+  display: none;
+}
+
+/* ---------- Revamp utilities ---------- */
+
+/* Sticker badge: tilted, solid, slight shadow */
+@layer components {
+.ng-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(31, 31, 31, 0.14);
+}
+}
+
+/* Placeholder media: diagonal stripes + label, reads as intentional "drop asset here" */
+.ng-placeholder {
+  position: relative;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(31, 31, 31, 0.06) 0 10px,
+    transparent 10px 22px
+  );
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Hero entrance: hidden from first paint so the splash → hero handoff never flashes. GSAP reveals them. */
+html:not([data-motion="reduce"]) [data-hero-anim] {
+  opacity: 0;
+}
+
+/* Splash parts start hidden until GSAP has placed them (prevents a first-frame flash). */
+[data-splash-anim] {
+  opacity: 0;
 }

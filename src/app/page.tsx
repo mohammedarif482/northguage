@@ -6,11 +6,13 @@ import SplashScreen from "@/components/SplashScreen";
 import Header from "@/components/Header";
 import ScrollHookMarker from "@/components/ScrollHookMarker";
 import Hero from "@/components/Hero";
-import LogoStrip from "@/components/LogoStrip";
 import ProofNumbers from "@/components/ProofNumbers";
 import TheProblem from "@/components/TheProblem";
-import HookReelKeepOverview from "@/components/HookReelKeepOverview";
-import ServicePanels from "@/components/ServicePanels";
+import Moves from "@/components/Moves";
+import LeakFinder from "@/components/LeakFinder";
+import FishingLine from "@/components/FishingLine";
+import MobileCTA from "@/components/MobileCTA";
+import TrustedBrands from "@/components/TrustedBrands";
 import FeaturedWork from "@/components/FeaturedWork";
 import WhyNorthgauge from "@/components/WhyNorthgauge";
 import Testimonials from "@/components/Testimonials";
@@ -37,40 +39,51 @@ export default function Home() {
           {/* Scroll Progress Indicator Track on the Right Edge */}
           <ScrollHookMarker />
 
-          <main className="grow">
-            {/* 1. Hero (#top) with opening animation synced to splash */}
+          <main id="main" className="grow">
+            {/* Trigger: the hook */}
             <Hero isSplashDone={isSplashDone} />
 
-          {/* 2. Client Logo Strip */}
-          <LogoStrip />
+            {/* Internal trigger: name the pain */}
+            <TheProblem />
 
-          {/* 3. Proof Numbers Counters */}
-          <ProofNumbers />
+            {/* The line: signature ribbon on the seam between the problem and the three moves */}
+            <FishingLine anchor={0.5} />
 
-          {/* 4. The Problem Manifesto */}
-          <TheProblem />
+            {/* The three moves (#services, #hook, #reel, #keep) */}
+            <Moves />
 
-          {/* 5. Hook. Reel. Keep. Spine Overview (#services) */}
-          <HookReelKeepOverview />
+            {/* Action + variable reward (#leak-finder) */}
+            <LeakFinder />
 
-          {/* 6. Service Deep Dives (#hook, #reel, #keep) */}
-          <ServicePanels />
+            {/* Proof (#work) */}
+            <FeaturedWork />
+            <ProofNumbers />
 
-          {/* 7. Featured Work Case Studies (#work) */}
-          <FeaturedWork />
+            {/* Brands (#brands) */}
+            <TrustedBrands />
 
-          {/* 8. Why Northgauge Brand Pillars (#why-us) */}
-          <WhyNorthgauge />
+            {/* Values (#why-us) */}
+            <WhyNorthgauge />
 
-          {/* 9. Testimonials */}
-          <Testimonials />
+            <Testimonials />
 
-          {/* 10. FAQ Accordion (#faq) */}
-          <FAQ />
+            {/* FAQ (#faq) */}
+            <FAQ />
 
-          {/* 11. Book an Audit (Full-bleed Orange CTA block) (#audit) */}
-          <AuditBooking />
+            <FishingLine
+              words={["Free growth audit", "Three fixes", "No pitch deck"]}
+              band="#B7B2A7"
+              ink="#1F1F1F"
+              reverse
+              flip
+              anchor={0.5}
+            />
+
+            {/* Investment: the audit (#audit) */}
+            <AuditBooking />
         </main>
+
+        <MobileCTA />
 
         {/* Footer */}
         <Footer onOpenPrivacy={() => setPrivacyOpen(true)} />

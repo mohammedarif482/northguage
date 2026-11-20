@@ -4,6 +4,20 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+/** Wrap each word (nowrap) and each char, so lines only break between words. */
+function splitWords(text: string, charClass: string) {
+  return text
+    .split(" ")
+    .map(
+      (word) =>
+        `<span class="inline-block whitespace-nowrap">${word
+          .split("")
+          .map((c) => `<span class="${charClass} inline-block">${c}</span>`)
+          .join("")}</span>`
+    )
+    .join(" ");
+}
+
 export default function TheProblem() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,32 +31,17 @@ export default function TheProblem() {
     const textEl = textRef.current;
     const punchlineEl = punchlineRef.current;
     if (!section || !textEl || !punchlineEl) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // Split main text into character spans
     const originalText = textEl.innerText;
-    textEl.innerHTML = originalText
-      .split("")
-      .map(
-        (char) =>
-          `<span class="manifesto-char inline-block transition-colors">${
-            char === " " ? "&nbsp;" : char
-          }</span>`
-      )
-      .join("");
+    textEl.innerHTML = splitWords(originalText, "manifesto-char");
 
     const chars = textEl.querySelectorAll<HTMLSpanElement>(".manifesto-char");
 
     // Split punchline into character spans
     const punchlineText = punchlineEl.innerText;
-    punchlineEl.innerHTML = punchlineText
-      .split("")
-      .map(
-        (char) =>
-          `<span class="punchline-char inline-block transition-colors">${
-            char === " " ? "&nbsp;" : char
-          }</span>`
-      )
-      .join("");
+    punchlineEl.innerHTML = splitWords(punchlineText, "punchline-char");
 
     const punchChars = punchlineEl.querySelectorAll<HTMLSpanElement>(".punchline-char");
 
@@ -108,7 +107,7 @@ export default function TheProblem() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-28 sm:py-44 bg-[#FFFDF2] hairline-b overflow-hidden select-none"
+      className="relative py-28 sm:py-44 bg-[#FCF5CD] overflow-hidden select-none"
     >
       <div
         ref={containerRef}

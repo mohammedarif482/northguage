@@ -19,7 +19,7 @@ export default function ScrollHookMarker() {
       }
 
       // Check current active section
-      const sections = ["top", "services", "hook", "reel", "keep", "work", "why-us", "faq", "audit"];
+      const sections = ["top", "services", "hook", "reel", "keep", "leak-finder", "work", "brands", "why-us", "faq", "audit"];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
@@ -49,7 +49,7 @@ export default function ScrollHookMarker() {
         <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-[#1F1F1F]/15" />
 
         {/* Section anchor nodes */}
-        {["top", "services", "work", "why-us", "audit"].map((sec) => (
+        {["top", "services", "leak-finder", "work", "why-us", "audit"].map((sec) => (
           <div
             key={sec}
             className={`w-1.5 h-1.5 rounded-full transition-colors z-10 ${
@@ -71,7 +71,7 @@ export default function ScrollHookMarker() {
             src="/northgauge-hook.svg"
             alt=""
             fill
-            className="object-contain drop-shadow-xs"
+            className="object-contain drop-shadow-[0_0_1.5px_#FFFDF2]"
           />
         </div>
       </div>
